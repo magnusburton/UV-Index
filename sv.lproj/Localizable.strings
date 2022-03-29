@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  UV Index
+
+  Created by Magnus Burton on 2021-06-13.
+  
+*/
+
+// Location
+"Location permission not granted" = "Åtkomst till platsinfo ej tillgänglig";
+"Unknown location" = "Okänd plats";
+"Done" = "Klar";
+"Current location" = "Nuvarande plats";
+"Location" = "Plats";
+"Press here to change location!" = "Klicka här för att byta plats";
+
+// API
+"UV Index is powered by Dark Sky" = "UV Index hämtar data från Dark Sky";
+
+// Widget
+"Currently" = "Just nu";
+"widget.currentLocation.description" = "Se de aktuella nivåerna vid din nuvarande plats.";
+
+// UV
+"uv.description.none" = "Inga risker.";
+"uv.description.low" = "Låga nivåer.";
+"uv.description.moderate" = "Medel risk. Skydda dig med solkräm och skugga.";
+"uv.description.high" = "Hög risk för skada.";
+"uv.description.veryHigh" = "Väldigt höga nivåer.";
+"uv.description.extreme" = "Extremt hög risk för skada.";

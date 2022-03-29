@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  UV Index
+
+  Created by Magnus Burton on 2021-06-13.
+  
+*/
+
+// Location
+"Location permission not granted" = "Location permission not granted";
+"Unknown location" = "Unknown location";
+"Done" = "Done";
+"Current location" = "Current location";
+"Location" = "Location";
+"Press here to change location!" = "Press here to change location";
+
+// API
+"UV Index is powered by Dark Sky" = "UV Index is powered by Dark Sky";
+
+// Widget
+"Currently" = "Currently";
+"widget.currentLocation.description" = "View the current levels at your location.";
+
+// UV
+"uv.description.none" = "No risks.";
+"uv.description.low" = "Low levels.";
+"uv.description.moderate" = "Protect yourself with sunscreen and shade.";
+"uv.description.high" = "High risk of harm.";
+"uv.description.veryHigh" = "Very high risk of harm.";
+"uv.description.extreme" = "Extreme risk of harm.";

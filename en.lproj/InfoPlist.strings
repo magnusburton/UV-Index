@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  UV Index
+
+  Created by Magnus Burton on 2021-06-13.
+  
+*/
+
+NSLocationWhenInUseUsageDescription = "Location is needed to fetch the current UV index at your location.";
