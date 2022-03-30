@@ -32,7 +32,10 @@ extension DataModel {
 			try BGTaskScheduler.shared.submit(request)
 		} catch {
 			logger.error("Could not schedule app refresh: \(error.localizedDescription)")
+			return
 		}
+		
+		logger.debug("Successfully scheduled app refresh")
 	}
 	
 	func handleAppRefresh(task: BGAppRefreshTask) {

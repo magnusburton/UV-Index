@@ -10,6 +10,7 @@ import os
 
 @main
 struct UV_IndexApp: App {
+	@Environment(\.scenePhase) private var scenePhase
 	
 	let logger = Logger(subsystem: "com.magnusburton.UV-Index", category: "Root View")
 
@@ -37,6 +38,11 @@ struct UV_IndexApp: App {
 						model.setCurrentTime()
 					}
 				})
+				.onChange(of: scenePhase) { newPhase in
+					if newPhase == .background {
+						model.scheduleAppRefresh()
+					}
+				}
         }
     }
 }
