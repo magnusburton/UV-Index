@@ -67,7 +67,6 @@ struct Provider: TimelineProvider {
 			
 			logger.debug("Generating widget entries")
 			
-//			var previousZero = false
 			let chunks = data.chunked(by: { $0.index == $1.index })
 			for chunk in chunks {
 				if chunk.isEmpty {
@@ -83,9 +82,9 @@ struct Provider: TimelineProvider {
 				
 				if chunk.count == 1 {
 					entry = SimpleEntry(date: date,
-											uv: uv,
-											relevance: .init(score: score,
-															 duration: 3600-1))
+										uv: uv,
+										relevance: .init(score: score,
+														 duration: 3600-1))
 				} else {
 					let last = chunk.last!
 					let duration = DateInterval(start: first.date,
@@ -130,17 +129,17 @@ struct WidgetEntryView: View {
 	@ViewBuilder
 	var body: some View {
 		switch family {
-			case .systemSmall:
-				SmallUVWidget(uv: entry.uv)
-			default:
-				SmallUVWidget(uv: entry.uv)
+		case .systemSmall:
+			SmallUVWidget(uv: entry.uv)
+		default:
+			SmallUVWidget(uv: entry.uv)
 		}
 	}
 }
 
 struct SmallUVWidget: View {
 	var uv: UV
-
+	
 	var body: some View {
 		ZStack {
 			Color.secondarySystemBackground
@@ -148,7 +147,6 @@ struct SmallUVWidget: View {
 			VStack(alignment: .leading, spacing: -12) {
 				Text("Currently")
 					.font(.subheadline.bold())
-					.padding(.top, 16)
 				
 				HStack {
 					GradientText(
@@ -165,14 +163,9 @@ struct SmallUVWidget: View {
 				Text(uv.description)
 					.foregroundColor(.secondary)
 					.font(.caption)
-					.padding(.bottom, 16)
 				
 			}
-			.padding(.leading, 16)
-			
-
-//			.clipShape(ContainerRelativeShape()
-//						.inset(by: 8))
+			.padding(16)
 		}
 	}
 	
@@ -203,19 +196,15 @@ struct Widget_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 0, date: Date())))
-			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 2, date: Date())))
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 4, date: Date())))
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 7, date: Date())))
-			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 11, date: Date())))
 		}
 		.environment(\.colorScheme, .dark)
 		.previewContext(WidgetPreviewContext(family: .systemSmall))
 		.previewLayout(.sizeThatFits)
 		
 		Group {
-			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 0, date: Date())))
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 2, date: Date())))
-			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 4, date: Date())))
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 6, date: Date())))
 			WidgetEntryView(entry: SimpleEntry(date: Date(), uv: UV(index: 11, date: Date())))
 		}
