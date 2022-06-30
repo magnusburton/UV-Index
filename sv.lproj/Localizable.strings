@@ -13,6 +13,35 @@
 "Current location" = "Nuvarande plats";
 "Location" = "Plats";
 "Press here to change location!" = "Klicka här för att byta plats";
+"Search for a city or an airport" = "Sök efter stad eller flygplats";
+
+"Delete" = "Radera";
+"Search results" = "Sökresultat";
+"My locations" = "Sparade platser";
+
+"location.permission.denied.title" = "Åtkomst till platsinfo ej tillgänglig";
+"location.permission.denied.description" = "UV Index måste komma åt din plats för att visa UV-nivåerna på din nuvarande plats.\n\nOm du inte vill dela din plats kan du se UV-nivåerna på andra platser som du väljer genom att söka efter dem.";
+"location.permission.denied.label" = "Granska åtkomst";
+
+// Settings
+"Settings" = "Inställningar";
+"General settings" = "Generella inställningar";
+
+"theme.header" = "Tema";
+"theme.system.text" = "Använd systeminställningar";
+"theme.light.text" = "Ljust";
+"theme.dark.text" = "Mörkt";
+
+"Review notification permissions" = "Hantera notisinställningar";
+"Notifications" = "Notiser";
+
+"High levels" = "Höga nivåer";
+"Notifications sent for levels **%@** and higher." = "Notiser skickas vid nivå **%@** och högre.";
+
+"Daily report" = "Daglig rapport";
+"Delivery time" = "Leveranstid";
+"Daily reports delivered daily at **%@**." = "Dagliga rapporter levereras dagligen **%@**.";
+"Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Dagliga rapporter levereras **%@** på dagar med nivåer från **%@** eller högre.";
 
 // API
 "UV Index is powered by Dark Sky" = "UV Index hämtar data från Dark Sky";
@@ -24,7 +53,37 @@
 // UV
 "uv.description.none" = "Inga risker.";
 "uv.description.low" = "Låga nivåer.";
-"uv.description.moderate" = "Medel risk. Skydda dig med solkräm och skugga.";
+"uv.description.moderate" = "Måttlig risk. Skydda dig med solkräm.";
 "uv.description.high" = "Hög risk för skada.";
 "uv.description.veryHigh" = "Väldigt höga nivåer.";
 "uv.description.extreme" = "Extremt hög risk för skada.";
+
+"uv.faq.source.who" = "Världshälsoorganisationen (WHO)";
+
+"uv.faq.source %@" = "Källa: %@";
+
+"uv.faq.1.title" = "Vad är UV Index?";
+"uv.faq.1.content" = "UV Index (UVI) är ett mått på UV-strålningsnivån. Indexet sträcker sig från noll och uppåt. En högre nivå ökar risken för hud- och ögonskador. En högre nivå minskar också tiden det tar för skada att inträffa.";
+
+"uv.faq.2.title" = "Hur kan du skydda dig";
+"uv.faq.2.content" = "För de flesta, även de med känslig hud, är risken för UV-skador från UVI 2 eller lägre begränsad. För det mesta behövs inga skyddsåtgärder vid dessa nivåer. För nivåer över ett UVI på 2 kan skydd behövas, beroende på din hudtyp. Dessa skyddsmedel inkluderar kläder, solglasögon, solkräm och skugga.";
+
+"uv.medical.title" = "Medicinsk information";
+"uv.medical" = "Denna app tillhandahåller endast information, är inte medicinsk eller behandlingsråd, och får inte behandlas som sådan av användaren. Som sådan kan denna app inte litas på för medicinsk diagnos eller som en rekommendation för medicinsk vård eller behandling. Informationen på den här appen är inte en ersättning för professionell medicinsk rådgivning, diagnos eller behandling. Allt innehåll, inklusive text, grafik, bilder och information, som är tillgängligt via den här appen är endast avsett för allmän information.";
+
+// Notifications
+"High levels" = "Höga UV-nivåer";
+"Levels of index %@ until %@" = "Index %@ fram till %@.";
+
+"Upcoming UV levels" = "Kommande UV-nivåer";
+
+"Low levels all day. Peak levels of %@ between %@." = "Låga nivåer hela dagen. Högsta nivån är %@ mellan %@.";
+
+"Apply sunscreen if you're outside. Peak levels of %@ between %@." = "Skydda dig med solkräm om du vistas utomhus. Högsta nivån idag är %@ mellan %@.";
+"Apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Skydda dig med solkräm om du vistas utomhus. Högsta nivån idag är %@ mellan %@. Annars måttliga nivåer mellan %@.";
+
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@." = "Hög UV-strålningsnivå, använd solskydd utomhus. Högsta nivån är idag %@ mellan %@.";
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Hög UV-strålningsnivå, använd solskydd utomhus. Högsta nivån är %@ mellan %@. Annars är det även skadliga nivåer mellan %@.";
+
+"Extreme risk of harm with peak levels of %@ between %@." = "Extremt skadliga nivåer på index %@ mellan %@.";
+"Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Extremt hög risk för skada med högsta nivåerna på %@ mellan %@. Annars är det även skadliga nivåer mellan %@.";

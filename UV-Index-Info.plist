@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.magnusburton.UV-Index.refresh</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSLocationDefaultAccuracyReduced</key>
+	<true/>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>CheckIndexIntent</string>
+		<string>com.magnusburton.UV-Index.activity.currentUV</string>
+		<string>com.magnusburton.UV-Index.activity.customUV</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
+</dict>
+</plist>

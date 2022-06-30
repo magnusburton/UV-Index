@@ -17,7 +17,7 @@ actor WeatherManager {
 	// MARK: - Properties
 	
 	// A weak link to the data model.
-	private weak var model: DataModel?
+	private weak var model: LocationModel?
 	
 	private let client = apiClient()
 	
@@ -25,24 +25,30 @@ actor WeatherManager {
 	// MARK: - Initializers
 	
 	// The weather manager's initializer.
-	init(withModel model: DataModel) {
+	init(withModel model: LocationModel) {
 		self.model = model
 	}
 	
 	// MARK: - Public methods
-	public func fetch(from location: CLPlacemark) async {
-		guard let coordinates = location.location?.coordinate else { return }
-		
+	@discardableResult
+	public func fetch(from location: Location) async -> [UV]? {
 		do {
-			let data = try await self.client.fetch(at: coordinates.asCoordinate)
+			let data = try await self.client.fetch(at: location.coordinates)
 			
+			// Update the model
 			await model?.updateModel(newData: data)
+			
+			// Return data
+			return data
 		} catch {
 			logger.error("Failed to fetch UV data with error \(error.localizedDescription)")
+			
 			await model?.updateWithError()
+			return nil
 		}
 	}
 	
 	
 	// MARK: - Private methods
+	
 }

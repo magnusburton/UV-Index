@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct TimeSliderView: View {
-//	@Environment(\.scenePhase) private var scenePhase
-	
 	@State private var circlePosition = CGSize(width: 0, height: 0)
 	@State private var timePosition = CGSize(width: 0, height: 0)
 	@GestureState private var isDragging = false
 	
-	@ObservedObject var model: DataModel
+	@ObservedObject var model: LocationModel
 	let data: [UV]
 	
     var body: some View {
@@ -65,12 +63,12 @@ struct TimeSliderView: View {
 							resetSlider(height: geometry.size.height)
 						}
 				}
-				.accessibilityRepresentation {
-					DatePicker("Pick a date and time to view future levels",
-							   selection: $model.date,
-							   in: accessibilityRange,
-							   displayedComponents: [.date, .hourAndMinute])
-				}
+//				.accessibilityRepresentation {
+//					DatePicker("Pick a date and time to view future levels",
+//							   selection: $model.date,
+//							   in: accessibilityRange,
+//							   displayedComponents: [.date, .hourAndMinute])
+//				}
 				
 				RoundedRectangle(cornerRadius: 5)
 					.fill(LinearGradient(gradient: Gradient(colors: gradientColors),
@@ -94,11 +92,9 @@ struct TimeSliderView: View {
 			}
 			.padding(.vertical, outerPadding)
 		}
-//		.onChange(of: scenePhase) { newPhase in
-//			guard newPhase == .active else { return }
-//
-//			self.now = .now
-//		}
+		.accessibilityElement()
+		.accessibilityLabel("Chart representing upcoming 48 hours of UV Index data")
+		.accessibilityChartDescriptor(self)
     }
 	
 	private let outerPadding: CGFloat = 0
@@ -110,7 +106,7 @@ struct TimeSliderView: View {
 	}
 	
 	private var timeZone: TimeZone {
-		model.locationTimeZone
+		model.location?.timeZone ?? .current
 	}
 	
 	private var accessibilityRange: ClosedRange<Date> {
@@ -213,14 +209,28 @@ struct TimeSliderView: View {
 #if DEBUG
 struct TimeSliderView_Previews: PreviewProvider {
 	static var previews: some View {
-		StateView()
+		let stockholm = Location(title: "Stockholm", subtitle: "Sweden",
+								 coordinates: Coordinate(latitude: 59.3279943,
+														 longitude: 18.054674),
+								 timeZone: .current)
+		
+		StateView(location: stockholm)
     }
 	
 	struct StateView: View {
 		@State var date = Date()
+		@StateObject private var model: LocationModel
+		
+		let location: Location
+		
+		init(location: Location) {
+			self.location = location
+			
+			_model = StateObject(wrappedValue: LocationModel(location, isUserLocation: false))
+		}
 		
 		var body: some View {
-			TimeSliderView(model: DataModel.shared, data: UV.testData)
+			TimeSliderView(model: model, data: UV.testData)
 				.frame(width: 200, height: 400)
 				.previewLayout(.sizeThatFits)
 				.padding()
@@ -229,3 +239,39 @@ struct TimeSliderView_Previews: PreviewProvider {
 	}
 }
 #endif
+
+extension TimeSliderView: AXChartDescriptorRepresentable {
+	func makeChartDescriptor() -> AXChartDescriptor {
+		let xAxis = AXCategoricalDataAxisDescriptor(
+			title: "Time",
+			categoryOrder: data.map({ $0.date.formatted(date: .long, time: .shortened) })
+		)
+		
+		let min = data.map({ Double($0.index) }).min() ?? 0.0
+		let max = data.map({ Double($0.index) }).max() ?? 0.0
+		
+		let yAxis = AXNumericDataAxisDescriptor(
+			title: "UV Index",
+			range: min...max,
+			gridlinePositions: []
+		) { value in "UV Index \(value)" }
+		
+		let series = AXDataSeriesDescriptor(
+			name: "",
+			isContinuous: false,
+			dataPoints: data.map {
+				.init(x: $0.date.formatted(date: .long, time: .shortened),
+					  y: Double($0.index))
+			}
+		)
+		
+		return AXChartDescriptor(
+			title: "Chart representing upcoming 48 hours of UV Index data",
+			summary: nil,
+			xAxis: xAxis,
+			yAxis: yAxis,
+			additionalAxes: [],
+			series: [series]
+		)
+	}
+}

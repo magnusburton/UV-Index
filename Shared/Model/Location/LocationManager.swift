@@ -14,20 +14,24 @@ class LocationManager: NSObject {
 	let logger = Logger(subsystem: "com.magnusburton.UV-Index.LocationManager",
 						category: "Location")
 	
-	// A weak link to the data model.
-	private weak var model: DataModel?
+	// A weak link to the data store.
+	private weak var model: Store?
 	
 	// MARK: - Properties
 	static let shared = LocationManager()
 	
 	public var isAuthorizedForWidgetUpdates: Bool {
-		manager.isAuthorizedForWidgetUpdates
+		#if os(watchOS)
+		return false
+		#else
+		return manager.isAuthorizedForWidgetUpdates
+		#endif
 	}
 	public var status: CLAuthorizationStatus {
 		manager.authorizationStatus
 	}
 	
-	private var locationContinuation: CheckedContinuation<CLPlacemark, Error>?
+	private var locationContinuation: CheckedContinuation<Location, Error>?
 	private let manager = CLLocationManager()
 	private let geocoder = CLGeocoder()
 	
@@ -38,17 +42,19 @@ class LocationManager: NSObject {
 		self.manager.delegate = self
 		self.manager.desiredAccuracy = kCLLocationAccuracyReduced
 		self.manager.distanceFilter = 500
+		#if !os(watchOS)
 		self.manager.pausesLocationUpdatesAutomatically = true
+		#endif
 		self.manager.requestWhenInUseAuthorization()
 		self.manager.startUpdatingLocation()
 	}
 	
 	// MARK: - Public Methods
-	public func assign(_ model: DataModel) {
+	public func assign(_ model: Store) {
 		self.model = model
 	}
 	
-	public func requestLocation() async throws -> CLPlacemark {
+	public func requestLocation() async throws -> Location {
 		try await withCheckedThrowingContinuation { continuation in
 			locationContinuation = continuation
 			manager.requestLocation()
@@ -89,8 +95,6 @@ extension LocationManager: CLLocationManagerDelegate {
 			return
 		}
 		
-//		locationContinuation?.resume(returning: location)
-		
 		Task {
 			do {
 				let geocode = try await reverseGeocode(location)
@@ -100,9 +104,14 @@ extension LocationManager: CLLocationManagerDelegate {
 					return
 				}
 				
-				await model.updateModel(with: place)
+				guard let formattedLocation = Location(from: place) else {
+					locationContinuation?.resume(throwing: LocationError.noData)
+					return
+				}
 				
-				locationContinuation?.resume(returning: place)
+				await model.updateModel(with: formattedLocation)
+				
+				locationContinuation?.resume(returning: formattedLocation)
 			} catch {
 				locationContinuation?.resume(throwing: LocationError.noData)
 			}
@@ -116,11 +125,11 @@ extension LocationManager: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		switch status {
 		case .restricted, .denied:
-			//disableLocationFeatures()
+			Task { await model?.disableLocationFeatures() }
 			break
 			
 		case .authorizedAlways, .authorizedWhenInUse:
-			//enableLocationFeatures()
+			Task { await model?.enableLocationFeatures() }
 			break
 			
 		case .notDetermined:

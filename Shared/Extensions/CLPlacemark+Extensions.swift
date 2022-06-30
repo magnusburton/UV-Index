@@ -43,13 +43,12 @@ extension CLPlacemark {
 		
 		// Remove duplicates if subtitle includes name as well
 		if let name = self.name, cleanedAttributes.contains(name) {
-			
 			cleanedAttributes.removeAll(where: { $0 == name })
-			
-		} else if cleanedAttributes.count == 0, let country = self.country {
-			// Add country if no attributes
+		}
+		
+		// Add country if no attributes
+		if cleanedAttributes.count == 0, let country = self.country {
 			cleanedAttributes.append(country)
-			
 		}
 		
 		if cleanedAttributes.isEmpty {

@@ -8,23 +8,33 @@
 import Foundation
 import BackgroundTasks
 
-extension DataModel {
+extension Store {
 	public func registerAppRefresh() {
-		guard !backgroundTasksRegistered else { return }
+		// Exit if tasks already registered
+		guard backgroundTasksRegistered == false else { return }
 		
 		logger.debug("Registering background tasks")
 		
-		BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.magnusburton.UV-Index.refresh", using: nil) { task in
+		// Register background tasks
+		let taskScheduled = BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.magnusburton.UV-Index.refresh", using: nil) { task in
 			self.handleAppRefresh(task: task as! BGAppRefreshTask)
 		}
-		backgroundTasksRegistered = true
+		
+		// Returns true if scheduled
+		backgroundTasksRegistered = taskScheduled
+		
+		if taskScheduled == false {
+			logger.error("Tasks not scheduled")
+		} else {
+			logger.debug("Background tasks registered")
+		}
 	}
 	
 	func scheduleAppRefresh() {
 		let request = BGAppRefreshTaskRequest(identifier: "com.magnusburton.UV-Index.refresh")
 		
-		// Fetch no earlier than 60 minutes from now.
-		request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 60)
+		// Fetch no earlier than 2 hours from now.
+		request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 3600)
 		
 		logger.debug("Scheduling app refresh")
 		
@@ -46,11 +56,11 @@ extension DataModel {
 		let asyncTask = Task {
 			// Create an operation that performs the main part of the background task.
 			// Start the operation.
-			await updateModelWithCurrentLocation()
+			let success = await appRefreshTaskAndScheduleNotifications()
 			
 			// Inform the system that the background task is complete
 			// when the operation completes.
-			task.setTaskCompleted(success: true)
+			task.setTaskCompleted(success: success)
 		}
 		
 		// Provide the background task with an expiration handler that cancels the operation.
@@ -59,5 +69,30 @@ extension DataModel {
 			asyncTask.cancel()
 		}
 	}
+}
 
+// MARK: - Background app refresh
+
+extension Store {
+	private func appRefreshTaskAndScheduleNotifications() async -> Bool {
+		let location: Location
+		
+		do {
+			location = try await locationManager.requestLocation()
+		} catch {
+			logger.error("Failed to retrieve location with error: \(error.localizedDescription)")
+			
+			// Return false indicating failure
+			return false
+		}
+		
+		let model = LocationModel(location, isUserLocation: true)
+		await model.refresh(ignoreRecentFetches: true)
+		
+		// Schedule notifications that may be sent in the future
+		await model.scheduleNotifications()
+		
+		// Return success
+		return true
+	}
 }

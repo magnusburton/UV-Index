@@ -11,10 +11,25 @@ import SwiftUI
 class UV: Codable {
 	var index: Int
 	var date: Date
+	var duration: TimeInterval
+	
+	var endDate: Date {
+		date.addingTimeInterval(duration)
+	}
+	var interval: DateInterval {
+		DateInterval(start: date, duration: duration)
+	}
 	
 	init(index: Int, date: Date) {
 		self.index = index
 		self.date = date
+		self.duration = 3600
+	}
+	
+	init(index: Int, startDate: Date, endDate: Date) {
+		self.index = index
+		self.date = startDate
+		self.duration = DateInterval(start: startDate, end: endDate).duration
 	}
 	
 	enum UVCategory {
@@ -65,23 +80,20 @@ class UV: Codable {
 		
 		if index > 11 {
 			index = 11
-		} else if index < 0 {
-			index = 0
-		}
-		
-		// Custom color for zero UV
-		if index == 0 {
-			return Color(hue: 160/360, saturation: 1, brightness: 0.8)
+		} else if index <= 0 {
+			// Custom color for zero UV
+			return Color(hue: 150/360, saturation: 1, brightness: 0.8)
 		}
 		
 		let percentage = Double(index) / 11
 		
 		// When index is zero
 //		let startHue = 120.0
-		let startHue = 130.0
+		let startHue = 135.0
 		
 		// When index is 11 (or higher)
-		let endHue = 300.0
+//		let endHue = 300.0
+		let endHue = 280.0
 		
 		// Distance between startHue and endHue the long way
 		let distance = 360 - endHue + startHue
@@ -100,5 +112,15 @@ class UV: Codable {
 extension UV: Equatable {
 	static func == (lhs: UV, rhs: UV) -> Bool {
 		lhs.index == rhs.index && lhs.date == rhs.date
+	}
+}
+
+struct UV_Previews: PreviewProvider {
+	static var previews: some View {
+		ForEach(0..<12) { index in
+			UV(index: index, date: .now).color
+				.previewDisplayName("UV index \(index)")
+		}
+		.previewLayout(.fixed(width: 50, height: 50))
 	}
 }

@@ -13,6 +13,35 @@
 "Current location" = "Current location";
 "Location" = "Location";
 "Press here to change location!" = "Press here to change location";
+"Search for a city or an airport" = "Search for a city or an airport";
+
+"Delete" = "Delete";
+"Search results" = "Search results";
+"My locations" = "My locations";
+
+"location.permission.denied.title" = "Location permission not granted";
+"location.permission.denied.description" = "UV Index need to access your location in order to show the UV levels at your current location.\n\nIf you don't want to share your location, you can view the UV levels at other locations of your choosing by searching for them.";
+"location.permission.denied.label" = "Review permissions";
+
+// Settings
+"Settings" = "Settings";
+"General settings" = "General settings";
+
+"theme.header" = "Theme";
+"theme.system.text" = "Use system preference";
+"theme.light.text" = "Light";
+"theme.dark.text" = "Dark";
+
+"Review notification permissions" = "Review notification permissions";
+"Notifications" = "Notifications";
+
+"High levels" = "High levels";
+"Notifications sent for levels **%@** and higher." = "Notifications sent for levels **%@** and higher.";
+
+"Daily report" = "Daily report";
+"Delivery time" = "Delivery time";
+"Daily reports delivered daily at **%@**." = "Daily reports delivered daily at **%@**.";
+"Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Daily reports delivered at **%@** on days with levels of **%@** or higher.";
 
 // API
 "UV Index is powered by Dark Sky" = "UV Index is powered by Dark Sky";
@@ -24,7 +53,37 @@
 // UV
 "uv.description.none" = "No risks.";
 "uv.description.low" = "Low levels.";
-"uv.description.moderate" = "Protect yourself with sunscreen and shade.";
+"uv.description.moderate" = "Protect yourself with sunscreen.";
 "uv.description.high" = "High risk of harm.";
 "uv.description.veryHigh" = "Very high risk of harm.";
 "uv.description.extreme" = "Extreme risk of harm.";
+
+"uv.faq.source.who" = "World Health Organization (WHO)";
+
+"uv.faq.source %@" = "Source: %@";
+
+"uv.faq.1.title" = "What is UV Index?";
+"uv.faq.1.content" = "UV Index (UVI) is a measure of the UV radiation level. The index range from zero upward. A higher level increases the risk for skin and eye damage. A higher level also decreases the time it takes for harm to occur.";
+
+"uv.faq.2.title" = "How to protect yourself";
+"uv.faq.2.content" = "For most people, even those with sensitive skin, the risk for UV damage from UVI 2 or lower is limited. For the most part, no protective measures are necessary during these levels. For levels above a UVI of 2, protection might be needed, depending on your skin type. These protective means include clothing, sunglasses, sunscreen, and shade.";
+
+"uv.medical.title" = "Medical information";
+"uv.medical" = "This App provides only information, is not medical or treatment advice, and may not be treated as such by the user. As such, this App may not be relied upon for medical diagnosis or as a recommendation for medical care or treatment. The information on this App is not a substitute for professional medical advice, diagnosis, or treatment. All content, including text, graphics, images, and information, available through this App is for general information purposes only.";
+
+// Notifications
+"High levels" = "High UV-levels";
+"Levels of index %@ until %@" = "Index %@ until %@.";
+
+"Upcoming UV levels" = "Upcoming UV levels";
+
+"Low levels all day. Peak levels of %@ between %@." = "Low levels all day. Peak levels of %@ between %@.";
+
+"Apply sunscreen if you're outside. Peak levels of %@ between %@." = "Apply sunscreen if you're outside. Peak levels of %@ between %@.";
+"Apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@.";
+
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@." = "High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@.";
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@.";
+
+"Extreme risk of harm with peak levels of %@ between %@." = "Extreme risk of harm with peak levels of %@ between %@.";
+"Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@.";

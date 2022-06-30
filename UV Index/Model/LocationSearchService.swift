@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import MapKit
 
-class LocationSearchService: ObservableObject {
+class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
 	
 	enum LocationStatus: Equatable {
 		case idle
@@ -19,56 +19,48 @@ class LocationSearchService: ObservableObject {
 		case result
 	}
 	
-	@Published var query: String = ""
+	@Published var query = ""
 	@Published private(set) var status: LocationStatus = .idle
-	@Published private(set) var searchResults: [MKMapItem] = []
 	
-	private var queryCancellable: AnyCancellable?
-	private let request = MKLocalSearch.Request()
+	var completer: MKLocalSearchCompleter
+	@Published var completions: [MKLocalSearchCompletion] = []
+	var cancellable: AnyCancellable?
 	
-	init() {
-		queryCancellable = $query
-			.receive(on: DispatchQueue.main)
-			// Debounce search
-			.debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
-			.sink(receiveValue: { query in
-				self.request.naturalLanguageQuery = query
-				self.request.pointOfInterestFilter = .init(including: [.airport, .nationalPark, .university])
-				self.request.resultTypes = .address
-				
-				if !query.isEmpty && query.count > 1 {
-					self.status = .isSearching
-					self.search(self.request)
-				} else {
-					self.status = .idle
-					self.searchResults = []
-				}
-			})
+	override init() {
+		completer = MKLocalSearchCompleter()
+		completer.resultTypes = [.address, .pointOfInterest]
+		completer.pointOfInterestFilter = .init(including: [.airport])
+		
+		super.init()
+		
+		cancellable = $query.assign(to: \.queryFragment, on: self.completer)
+		completer.delegate = self
 	}
 	
-	private func search(_ request: MKLocalSearch.Request) {
-		Task {
-			let search = MKLocalSearch(request: request)
+	public func getMapItem(from completion: MKLocalSearchCompletion) async -> MKMapItem? {
+		let request = MKLocalSearch.Request(completion: completion)
+		
+		let search = MKLocalSearch(request: request)
+		
+		do {
+			let response = try await search.start()
 			
-			do {
-				let response = try await search.start()
-
-				await updateStatus(response.mapItems.isEmpty ? .noResults : .result)
-				await updateResults(response.mapItems)
-			} catch {
-				await updateStatus(.error(error.localizedDescription))
-				debugPrint("Error searching for locations with error: \(error.localizedDescription)")
-			}
+			return response.mapItems[0]
+		} catch {
+			debugPrint("Error searching for locations with error: \(error.localizedDescription)")
+			return nil
 		}
+	}
+	
+	@MainActor
+	func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+		self.completions = completer.results
 	}
 	
 	@MainActor
 	private func updateStatus(_ status: LocationStatus) {
 		self.status = status
 	}
-	
-	@MainActor
-	private func updateResults(_ results: [MKMapItem]) {
-		self.searchResults = results
-	}
 }
+
+extension MKLocalSearchCompletion: Identifiable {}

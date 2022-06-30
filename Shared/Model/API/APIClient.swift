@@ -43,30 +43,29 @@ actor apiClient {
 		
 		return try await withCheckedThrowingContinuation { continuation in
 			let task = session.dataTask(with: request) { data, response, error in
-				DispatchQueue.main.async {
-					if let data = data {
-						guard let httpResponse = response as? HTTPURLResponse else {
-							continuation.resume(throwing: apiError.requestFailed)
-							return
+				if let data = data {
+					guard let httpResponse = response as? HTTPURLResponse else {
+						continuation.resume(throwing: apiError.requestFailed)
+						return
+					}
+					
+					guard httpResponse.statusCode == 200 else {
+						continuation.resume(throwing: apiError.invalidData)
+						return
+					}
+					
+					do {
+						let weather = try self.decoder.decode(Weather.self, from: data)
+						let uvWeather = weather.hourly.data.map {
+							UV(index: $0.uvIndex, date: Date(timeIntervalSince1970: $0.time))
 						}
 						
-						if httpResponse.statusCode == 200 {
-							do {
-								let weather = try self.decoder.decode(Weather.self, from: data)
-								let uvWeather = weather.hourly.data.map {
-									UV(index: $0.uvIndex, date: Date(timeIntervalSince1970: $0.time))
-								}
-								
-								continuation.resume(returning: uvWeather)
-							} catch let error {
-								continuation.resume(throwing: error)
-							}
-						} else {
-							continuation.resume(throwing: apiError.invalidData)
-						}
-					} else if let error = error {
+						continuation.resume(returning: uvWeather)
+					} catch let error {
 						continuation.resume(throwing: error)
 					}
+				} else if let error = error {
+					continuation.resume(throwing: error)
 				}
 			}
 			
