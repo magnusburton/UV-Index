@@ -34,8 +34,8 @@ actor apiClient {
 		self.init(configuration: .default)
 	}
 	
-	func fetch(at coordinate: Coordinate) async throws -> [UV] {
-		guard let url = URL(string: coordinate.description, relativeTo: baseUrl) else {
+	func fetch(at coordinates: Coordinate) async throws -> [UV] {
+		guard let url = URL(string: coordinates.description, relativeTo: baseUrl) else {
 			throw apiError.invalidURL
 		}
 		
