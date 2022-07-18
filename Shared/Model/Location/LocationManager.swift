@@ -41,10 +41,12 @@ class LocationManager: NSObject {
 		
 		self.manager.delegate = self
 		self.manager.desiredAccuracy = kCLLocationAccuracyReduced
-		self.manager.distanceFilter = 500
+		self.manager.distanceFilter = 2000
+		
 		#if !os(watchOS)
 		self.manager.pausesLocationUpdatesAutomatically = true
 		#endif
+		
 		self.manager.requestWhenInUseAuthorization()
 		self.manager.startUpdatingLocation()
 	}
