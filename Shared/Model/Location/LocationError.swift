@@ -9,6 +9,7 @@ import SwiftUI
 
 enum LocationError: Error {
 	case noData
+	case noTimeZone
 	case noModel
 	case noPermission
 	
@@ -20,6 +21,8 @@ extension LocationError: LocalizedError {
 		switch self {
 		case .noData:
 			return NSLocalizedString("Missing valid data.", comment: "")
+		case .noTimeZone:
+			return NSLocalizedString("Missing valid timezone data.", comment: "")
 		case .noModel:
 			return NSLocalizedString("Missing valid data model.", comment: "")
 		case .noPermission:
