@@ -14,6 +14,8 @@
 "Location" = "Location";
 "Press here to change location!" = "Press here to change location";
 "Search for a city or an airport" = "Search for a city or an airport";
+"Cancel" = "Cancel";
+"Add" = "Add";
 
 "Delete" = "Delete";
 "Search results" = "Search results";
