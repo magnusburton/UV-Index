@@ -76,6 +76,10 @@ actor NotificationManager {
 			content.title = title
 		}
 		
+		// Notification trigger date
+		let triggerDate: Date
+		
+		// Handling high level UV notifiations
 		if type == .highLevel {
 			let endDate = data.endDate
 			
@@ -83,8 +87,8 @@ actor NotificationManager {
 			
 			content.body = localizedBody
 			
-			// Set date trigger
-			let triggerDate = data.date
+			// Set date for trigger
+			triggerDate = data.date
 			let dateComponents = Calendar.current.dateComponents([.month, .day, .hour],
 																 from: triggerDate)
 			
@@ -100,7 +104,7 @@ actor NotificationManager {
 		content.categoryIdentifier = type.identifier
 		
 		// With trigger set to nil, this will deliver right away.
-		let request = UNNotificationRequest(identifier: "\(type.identifier)+\(UUID().uuidString)",
+		let request = UNNotificationRequest(identifier: "\(type.identifier)+\(triggerDate.hashValue)",
 											content: content,
 											trigger: trigger)
 		
@@ -134,11 +138,14 @@ actor NotificationManager {
 			content.title = title
 		}
 		
+		// Notification trigger date
+		let triggerDate: Date
+		
 		if type == .dailyOverview {
 			content.body = body
 			
 			// Set date trigger
-			let triggerDate = date
+			triggerDate = date
 			let dateComponents = Calendar.current.dateComponents([.month, .day, .hour],
 																 from: triggerDate)
 			
@@ -154,7 +161,7 @@ actor NotificationManager {
 		content.categoryIdentifier = type.identifier
 		
 		// With trigger set to nil, this will deliver right away.
-		let request = UNNotificationRequest(identifier: "\(type.identifier)+\(UUID().uuidString)",
+		let request = UNNotificationRequest(identifier: "\(type.identifier)+\(triggerDate.hashValue)",
 											content: content,
 											trigger: trigger)
 		
