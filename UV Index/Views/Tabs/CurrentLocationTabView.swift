@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import AppIntents
 
 struct CurrentLocationTabView: View {
 	@ObservedObject var store: Store
 	@EnvironmentObject private var userData: UserData
+	
+	@Environment(\.displayScale) private var displayScale
 	
 	@StateObject private var model: LocationModel
 	
@@ -21,40 +24,74 @@ struct CurrentLocationTabView: View {
 	
 	var body: some View {
 		DataView(model: model)
-		.onChange(of: store.currentLocation) { newValue in
+		.onChange(of: store.currentLocation) { _, newValue in
 			guard let newLocation = newValue else {
 				return
 			}
 			
 			model.updateLocation(newLocation)
 		}
-		.onChange(of: userData.notifications) { newValue in
+		.onChange(of: userData.notifications) { _, newValue in
 			userData.notificationHighLevels = false
 			userData.notificationDailyOverview = false
 			
 			scheduleNotifications()
 		}
-		.onChange(of: userData.notificationHighLevels) { newValue in
+		.onChange(of: userData.notificationHighLevels) { _, newValue in
 			guard newValue == true else { return }
 			scheduleNotifications()
 		}
-		.onChange(of: userData.notificationHighLevelsMinimumValue) { _ in
+		.onChange(of: userData.notificationHighLevelsMinimumValue) {
 			scheduleNotifications()
 		}
-		.onChange(of: userData.notificationDailyOverview) { newValue in
+		.onChange(of: userData.notificationDailyOverview) { _, newValue in
 			guard newValue == true else { return }
 			scheduleNotifications()
 		}
-		.onChange(of: userData.notificationDailyOverviewMinimumValue) { _ in
+		.onChange(of: userData.notificationDailyOverviewMinimumValue) {
 			scheduleNotifications()
 		}
-		.onChange(of: userData.notificationDailyOverviewTime) { _ in
+		.onChange(of: userData.notificationDailyOverviewTime) {
 			scheduleNotifications()
+		}
+		.onChange(of: userData.shareLocation) {
+			render()
+		}
+		.onAppear {
+			render()
+		}
+		.onChange(of: model.data) {
+			render()
+		}
+		.task {
+			let intent = GetUVIndexAtLocation()
+			IntentDonationManager.shared.donate(intent: intent)
 		}
 	}
 	
 	private func scheduleNotifications() {
 		Task { await model.scheduleNotifications() }
+	}
+	
+	@MainActor
+	func render() {
+		guard let data = model.data.first(where: { $0.interval.contains(.now) }) else {
+			debugPrint("Failed to find valid data")
+			return
+		}
+		
+		let renderer = ImageRenderer(
+			content: ImageShareView(uv: data, location: model.location)
+				.environmentObject(userData)
+				.environment(\.locale, .autoupdatingCurrent)
+		)
+		
+		// make sure and use the correct display scale for this device
+		renderer.scale = displayScale
+		
+		if let uiImage = renderer.uiImage {
+			store.renderedCurrentLocationImage = Image(uiImage: uiImage)
+		}
 	}
 }
 

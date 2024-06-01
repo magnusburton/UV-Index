@@ -1,9 +1,12 @@
-/* 
-  InfoPlist.strings
+/* Bundle display name */
+"CFBundleDisplayName" = "UV Index";
+
+/* Bundle name */
+"CFBundleName" = "UV Index";
+
+/* InfoPlist.strings
   UV Index
 
-  Created by Magnus Burton on 2021-06-13.
-  
-*/
+  Created by Magnus Burton on 2021-06-13. */
+"NSLocationWhenInUseUsageDescription" = "Åtkomst till din plats behövs för att hämta UV Index där du befinner dig.";
 
-NSLocationWhenInUseUsageDescription = "Åtkomst till din plats behövs för att hämta UV Index där du befinner dig.";

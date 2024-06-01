@@ -8,6 +8,11 @@
 import Foundation
 import os
 import CoreLocation
+import SwiftUI
+import TelemetryClient
+#if !os(watchOS)
+import WidgetKit
+#endif
 
 @MainActor
 class Store: ObservableObject {
@@ -33,13 +38,23 @@ class Store: ObservableObject {
 	// User's saved locations, may be empty
 	@Published public private(set) var savedLocations: [Location] = []
 	
-	// Show current location by default
+	@Published public var renderedCurrentLocationImage: Image?
+	
+	/// Show current location by default
+	/// Don't access this programatically!
 	@Published public var tabSelection = 0
 	
+	/// Don't access this programatically!
 	@Published public var presentSheet = false
-	@Published public var sheet = PresentedSheet.location
+	@Published public private(set) var sheet = PresentedSheet.location
 	
-	@Published public var notificationsAuthorized = false
+	@Published public var notificationsAuthorized = false {
+		didSet {
+			TelemetryManager.send("notificationAuthorizationChanged", with: [
+				"state": "\(notificationsAuthorized)"
+			])
+		}
+	}
 	
 	public var authorizationStatus: CLAuthorizationStatus {
 		locationManager.status
@@ -57,25 +72,62 @@ class Store: ObservableObject {
 	
 	// Update the model with new location data from GPS.
 	public func updateModel(with location: Location) async {
-		logger.debug("Updating model with current location \(location)")
+		logger.debug("Updating model with current location \(location).")
 		
 		self.currentLocation = location
+		
+#if !os(watchOS)
+		WidgetCenter.shared.reloadAllTimelines()
+#endif
 	}
 	
 	public func showCurrentLocationTab() {
+		logger.debug("Moving to current location tab.")
+		
 		withOptionalAnimation {
 			tabSelection = 0
+			presentSheet = false
 		}
+		
+		TelemetryManager.send("showLocationTab", with: [
+			"locationIndex": "0"
+		])
 	}
 	
 	public func showLocationTab(_ location: Location) {
 		guard let index = savedLocations.firstIndex(of: location) else {
+			logger.error("Moving to location \(location) tab failed.")
 			return
 		}
 		
+		logger.error("Moving to location \(location) tab.")
+		
 		withOptionalAnimation {
 			tabSelection = index+1
+			presentSheet = false
 		}
+		
+		TelemetryManager.send("showLocationTab", with: [
+			"locationIndex": "\(index)"
+		])
+	}
+	
+	public func showLocationTab(_ locationId: String) throws {
+		guard let index = savedLocations.firstIndex(where: { $0.id == locationId }) else {
+			logger.error("Moving to location id \(locationId) tab failed.")
+			return
+		}
+		
+		logger.error("Moving to location id \(locationId) tab.")
+		
+		withOptionalAnimation {
+			tabSelection = index+1
+			presentSheet = false
+		}
+		
+		TelemetryManager.send("showLocationTab", with: [
+			"locationIndex": "\(index)"
+		])
 	}
 	
 	// Add a location to the list of locations.
@@ -96,14 +148,14 @@ class Store: ObservableObject {
 		savedLocations = locations
 		
 		// Navigate to added location
-		withOptionalAnimation {
-			tabSelection = locations.count
-		}
+		showLocationTab(location)
 		
 		// Save location information.
 		Task {
 			await self.locationsUpdated()
 		}
+		
+		TelemetryManager.send("addLocation")
 	}
 	
 	// Remove a location from the list of locations.
@@ -129,15 +181,59 @@ class Store: ObservableObject {
 		// Save location information.
 		Task {
 			await self.locationsUpdated()
+			
+			// TODO: Remove donated intents
 		}
+		
+		TelemetryManager.send("removeLocation")
 	}
 	
 	public func enableLocationFeatures() {
+		logger.log("Enabling location features.")
 		
+		locationManager.beginMonitoring()
+		
+#if !os(watchOS)
+		WidgetCenter.shared.reloadAllTimelines()
+#endif
 	}
 	
 	public func disableLocationFeatures() {
+		logger.log("Disabling location features.")
 		
+		locationManager.cancelMonitoring()
+		
+		// Clear old location data
+		UserData.clearLastLocation()
+		
+		// Clear old UV data
+		userData.data = []
+		
+#if !os(watchOS)
+		WidgetCenter.shared.reloadAllTimelines()
+#endif
+	}
+	
+	public func showSheet(_ sheet: PresentedSheet) {
+		logger.error("Presenting \(sheet.rawValue) sheet.")
+		
+		withOptionalAnimation {
+			self.sheet = sheet
+			self.presentSheet = true
+		}
+		
+		TelemetryManager.send("openSheet", with: [
+			"sheet": sheet.rawValue
+		])
+	}
+	
+	public func hideSheet() {
+		logger.error("Hiding sheet.")
+		
+		withOptionalAnimation {
+			self.presentSheet = false
+		}
+		TelemetryManager.send("hideSheet")
 	}
 	
 	// MARK: - Private methods
@@ -173,7 +269,7 @@ class Store: ObservableObject {
 	
 	// MARK: - Enums
 	
-	enum PresentedSheet: Equatable {
+	enum PresentedSheet: String, Equatable {
 		case location
 		case settings
 	}
@@ -206,7 +302,7 @@ private actor DataStore {
 			// Encode the currentLocations array.
 			data = try encoder.encode(currentLocations)
 		} catch {
-			logger.error("An error occurred while encoding the data: \(error.localizedDescription)")
+			logger.error("Encoding the data failed: \(error.localizedDescription)")
 			return
 		}
 		
@@ -219,7 +315,7 @@ private actor DataStore {
 			
 			self.logger.debug("Saved!")
 		} catch {
-			self.logger.error("An error occurred while saving the data: \(error.localizedDescription)")
+			self.logger.error("Saving the data failed: \(error.localizedDescription)")
 		}
 	}
 	
@@ -236,10 +332,10 @@ private actor DataStore {
 			// Decode the data.
 			let decoder = PropertyListDecoder()
 			locations = try decoder.decode([Location].self, from: data)
-			logger.debug("Data loaded from disk")
+			logger.debug("Data loaded from disk.")
 			
 		} catch CocoaError.fileReadNoSuchFile {
-			logger.debug("No file found--creating an empty location list.")
+			logger.error("No file found--creating an empty location list.")
 			locations = []
 		} catch {
 			fatalError("*** An unexpected error occurred while loading the location list: \(error.localizedDescription) ***")

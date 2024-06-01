@@ -20,15 +20,15 @@ extension LocationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .noData:
-			return NSLocalizedString("Missing valid data.", comment: "")
+			return NSLocalizedString("Missing valid UV data.", comment: "")
 		case .noTimeZone:
 			return NSLocalizedString("Missing valid timezone data.", comment: "")
 		case .noModel:
 			return NSLocalizedString("Missing valid data model.", comment: "")
 		case .noPermission:
-			return NSLocalizedString("Insufficient permissions.", comment: "")
+			return NSLocalizedString("Insufficient location permissions.", comment: "")
 		case .unknown(let error):
-			return NSLocalizedString("Received unexpected error. \(error.localizedDescription)", comment: "")
+			return error.localizedDescription
 		}
 	}
 }

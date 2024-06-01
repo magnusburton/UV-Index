@@ -31,8 +31,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "380">
+                  endingLineNumber = "37">
                </Location>
                <Location
                   uuid = "638298D7-32C2-4022-A13D-E6C77A6705DB - 3d0402992aa3c1ee"
@@ -46,56 +45,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "152">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8EE9036E-2DDB-4CB8-A9CE-C6AA51733F6F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UV Index/LocationSheetView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "update(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8EE9036E-2DDB-4CB8-A9CE-C6AA51733F6F - a162566adac49111"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in UV_Index.LocationSheetView.update(Swift.Optional&lt;__C.MKLocalSearchCompletion&gt;) -&gt; ()"
-                  moduleName = "UV Index"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/LocationSheetView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  uuid = "8EE9036E-2DDB-4CB8-A9CE-C6AA51733F6F - d445981703ba56cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in UV_Index.LocationSheetView.update(Swift.Optional&lt;__C.MKLocalSearchCompletion&gt;) -&gt; ()"
-                  moduleName = "UV Index"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/LocationSheetView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "736">
+                  endingLineNumber = "37">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -183,32 +133,168 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF976560-60CF-4386-8C0B-0928F766105D"
+            uuid = "BC96A4F8-7099-4036-9EAC-03CD09ABE719"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UV Index/Model/BackgroundManager.swift"
+            filePath = "UV Index/Views/Settings/AttributionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "scheduleAppRefresh()"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "BC96A4F8-7099-4036-9EAC-03CD09ABE719 - 51c2e3d64250453"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable () async -&gt; () in UV_Index.AttributionView.body.getter : some"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/Views/Settings/AttributionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+               <Location
+                  uuid = "BC96A4F8-7099-4036-9EAC-03CD09ABE719 - 391e797a12f1fa34"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #2 @Sendable () async -&gt; () in UV_Index.AttributionView.body.getter : some"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/Views/Settings/AttributionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+               <Location
+                  uuid = "BC96A4F8-7099-4036-9EAC-03CD09ABE719 - 4ad28528cadcc051"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 @Sendable () async -&gt; () in UV_Index.AttributionView.body.getter : some"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/Views/Settings/AttributionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+               <Location
+                  uuid = "BC96A4F8-7099-4036-9EAC-03CD09ABE719 - f589c8a219ef3e50"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #2 @Sendable () async -&gt; () in UV_Index.AttributionView.body.getter : some"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/UV%20Index/Views/Settings/AttributionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E5024CED-7AD6-47DC-B70B-8B22CBC523EA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UV Index/Views/Tabs/TimeSliderView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "handleGesture(value:height:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8B40D181-29BF-4FEE-9E08-9273105BCA61"
+            uuid = "DB65949D-3C2C-42B2-8AD2-C7E404AFAE5D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UV Index/Model/BackgroundManager.swift"
+            filePath = "Shared/Model/LocationModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "handleAppRefresh(task:)"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "updated()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6C51BED-D3EF-4FF9-9EFA-D0177C553FEE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/Extensions/CLPlacemark+Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "formattedSubtitle"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "F6C51BED-D3EF-4FF9-9EFA-D0177C553FEE - e9eb2a76505266f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__C.CLPlacemark.formattedSubtitle.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/Shared/Extensions/CLPlacemark+Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "F6C51BED-D3EF-4FF9-9EFA-D0177C553FEE - bd5f5ff0534e8f13"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; Swift.Optional&lt;Swift.String&gt; in __C.CLPlacemark.formattedSubtitle.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "UV Index"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnusburton/Documents/Projects/UV%20Index/UV%20Index/Shared/Extensions/CLPlacemark+Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5584E5EC-71AF-466C-AF43-9F1DC51B82C6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UV Index/Location/LocationSheetView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "preview(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

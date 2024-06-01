@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import CoreLocation
 
 struct Location: Hashable, Codable {
 	let title: String
@@ -37,10 +38,7 @@ struct Location: Hashable, Codable {
 		self.timeZone = placemark.timeZone ?? .current
 	}
 	
-	init?(from mapItem: MKMapItem?) {
-		guard let mapItem = mapItem else {
-			return nil
-		}
+	init?(from mapItem: MKMapItem) {
 		guard let name = mapItem.placemark.name,
 			  let subtitle = mapItem.placemark.formattedSubtitle,
 			  let location = mapItem.placemark.location else {
@@ -48,6 +46,7 @@ struct Location: Hashable, Codable {
 			debugPrint("Failed to generate Location object due to bad input data.")
 			return nil
 		}
+		
 		guard let timeZone = (mapItem.placemark.timeZone ?? mapItem.timeZone) else {
 			
 			debugPrint("Failed to generate Location object due to bad time zone data.")
@@ -70,5 +69,21 @@ extension Location: Identifiable {
 extension Location: CustomStringConvertible {
 	var description: String {
 		"\(title), \(subtitle)"
+	}
+}
+
+extension Location {
+	var shortcutItem: UIApplicationShortcutItem {
+		UIApplicationShortcutItem(
+			type: id,
+			localizedTitle: title,
+			localizedSubtitle: subtitle,
+			icon: UIApplicationShortcutIcon(systemImageName: "mappin.circle"),
+			userInfo: nil
+		)
+	}
+	
+	var placemark: CLPlacemark {
+		CLPlacemark(location: coordinates.asCLLocation, name: title, postalAddress: nil)
 	}
 }

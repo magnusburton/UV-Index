@@ -25,7 +25,6 @@ func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: (
 }
 
 extension Binding {
-	
 	/// Specifies an animation to perform when the binding value changes. Only animated if enivironment `.accessibilityReduceMotion` is false.
 	///
 	/// - Parameter animation: An animation sequence performed when the binding

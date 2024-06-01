@@ -1,0 +1,6 @@
+/* InfoPlist.strings
+  UV Index
+
+  Created by Magnus Burton on 2021-06-13. */
+"NSLocationWhenInUseUsageDescription" = "La localisation est nécessaire pour récupérer l'indice UV actuel à votre emplacement.";
+

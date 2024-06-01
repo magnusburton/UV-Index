@@ -12,8 +12,6 @@ struct SettingsSheetView: View {
 	@Environment(\.dismiss) private var dismiss
 	@EnvironmentObject private var userData: UserData
 	
-	@StateObject private var locationService = LocationSearchService()
-	
 	@ObservedObject var store: Store
 	
 	var body: some View {
@@ -28,7 +26,6 @@ struct SettingsSheetView: View {
 				})
 				
 				Section(content: {
-					
 					Picker("theme.header", selection: $userData.colorScheme) {
 						Text("theme.system.text")
 							.tag(0)
@@ -40,6 +37,7 @@ struct SettingsSheetView: View {
 							.tag(2)
 					}
 					
+					Toggle("shareLocation.header", isOn: $userData.shareLocation)
 				}, header: {
 					Text("General settings")
 				})
@@ -62,6 +60,7 @@ struct SettingsSheetView: View {
 					if userData.notificationHighLevels {
 						VStack(alignment: .leading, spacing: 0) {
 							Text("Notifications sent for levels **\(userData.notificationHighLevelsMinimumValue.formatted())** and higher.")
+								.fixedSize(horizontal: false, vertical: true)
 							
 							NotificationSliderView(value: $userData.notificationHighLevelsMinimumValue)
 						}
@@ -78,6 +77,7 @@ struct SettingsSheetView: View {
 					
 					if userData.notificationDailyOverview {
 						DailyOverviewSettingsView()
+							.fixedSize(horizontal: false, vertical: true)
 					}
 				}, header: {
 					Text("Notifications")
@@ -90,8 +90,10 @@ struct SettingsSheetView: View {
 					Text("uv.medical.title")
 				})
 				
+				AttributionView()
+				
 				Section {
-					Text("UV Index is powered by Dark Sky")
+					VersionView()
 				}
 			}
 			.navigationTitle("Settings")
@@ -99,7 +101,7 @@ struct SettingsSheetView: View {
 			.navigationBarItems(
 				trailing:
 					Button("Done") {
-						dismiss()
+						Task { dismiss() }
 					}
 			)
 		}
@@ -114,7 +116,7 @@ struct SettingsSheetView: View {
 
 struct SettingsSheetView_Previews: PreviewProvider {
 	static var previews: some View {
-		SettingsSheetView(store: Store.shared)
+		SettingsSheetView(store: .shared)
 			.environmentObject(UserData.shared)
 	}
 }

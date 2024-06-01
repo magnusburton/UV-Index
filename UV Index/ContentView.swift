@@ -13,15 +13,16 @@ struct ContentView: View {
 	@EnvironmentObject private var userData: UserData
 	@ObservedObject var store: Store
 	
+	@State private var renderedImage: Image?
+	
 	var body: some View {
 		VStack {
 			HStack(spacing: 6) {
 				VStack(alignment: .leading) {
 					Button(action: {
-						store.sheet = .location
-						store.presentSheet = true
+						store.showSheet(.location)
 						
-						withAnimation {
+						withOptionalAnimation {
 							userData.hasOpenedLocationSheet = true
 						}
 					}) {
@@ -29,6 +30,7 @@ struct ContentView: View {
 					}
 					.foregroundColor(.accentColor)
 					.accessibilityAddTraits([.isModal])
+					.lineLimit(1)
 					
 					if !userData.hasOpenedLocationSheet {
 						Text("Press here to change location!")
@@ -39,9 +41,20 @@ struct ContentView: View {
 				
 				Spacer()
 				
+				if let renderedImage = store.renderedCurrentLocationImage, store.tabSelection == 0 {
+					ShareLink(
+						item: renderedImage,
+						preview: SharePreview(
+							Text("Currently"),
+							image: Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+						)
+					)
+					.labelStyle(.iconOnly)
+					.font(.body.bold())
+				}
+				
 				Button(action: {
-					store.sheet = .settings
-					store.presentSheet = true
+					store.showSheet(.settings)
 				}, label: {
 					Image(systemName: "ellipsis.circle")
 						.font(.body.bold())
@@ -56,7 +69,7 @@ struct ContentView: View {
 			TabView(selection: $store.tabSelection) {
 				CurrentLocationTabView(store)
 				.tabItem {
-					Image(systemName: "location")
+					Image(systemName: locationTabImage)
 				}
 				.tag(0)
 				
@@ -107,6 +120,14 @@ struct ContentView: View {
 		}
 		
 		return Label(location.description, systemImage: "location.fill")
+	}
+	
+	private var locationTabImage: String {
+		if store.authorized == false || store.currentLocation == nil {
+			return "location.slash.fill"
+		} else {
+			return "location.fill"
+		}
 	}
 }
 

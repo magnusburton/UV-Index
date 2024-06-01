@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TelemetryClient
 import os
 
 @main
@@ -28,14 +29,32 @@ struct UV_IndexApp: App {
         WindowGroup {
 			ContentView(store: store)
 				.environmentObject(userData)
-				.onChange(of: scenePhase) { newPhase in
+				.onChange(of: scenePhase) { _, newPhase in
 					if newPhase == .active {
 						Task { await store.getNotificationStatus() }
+						
+						handleQuickActions(using: appDelegate)
 					} else if newPhase == .background {
+						// App entered background
+						addDynamicQuickActions(with: store.savedLocations)
 						store.scheduleAppRefresh()
 					}
 				}
+				.onOpenURL { url in
+					guard url.scheme == "uvIndex" else { return }
+					
+					guard let path = url.host else { return }
+					
+					if path == "current" {
+						// Navigate to current location
+						store.showCurrentLocationTab()
+					}
+				}
         }
+		.backgroundTask(.appRefresh("com.magnusburton.UV-Index.refresh")) {
+			await store.refreshAppData()
+			await store.scheduleAppRefresh()
+		}
     }
 }
 
@@ -43,21 +62,20 @@ struct UV_IndexApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 		
+		debugPrint("didFinishLaunchingWithOptions")
+		
 		// Set notification delegate
 		UNUserNotificationCenter.current().delegate = self
-		
-		// Register and initialize background tasks
-		Store.shared.registerAppRefresh()
 		
 		return true
 	}
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-	func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-		let store = Store.shared
+	nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+		Task {
+			await Store.shared.showSheet(.settings)
+		}
 		
-		store.sheet = .settings
-		store.presentSheet = true
 	}
 }

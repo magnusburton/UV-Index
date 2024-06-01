@@ -8,6 +8,7 @@
 import Foundation
 import os
 import CoreLocation
+@preconcurrency import WeatherKit
 
 actor WeatherManager {
 	
@@ -16,36 +17,25 @@ actor WeatherManager {
 	
 	// MARK: - Properties
 	
-	// A weak link to the data model.
-	private weak var model: LocationModel?
-	
-	private let client = apiClient()
+	static let shared = WeatherManager()
 	
 	
 	// MARK: - Initializers
 	
 	// The weather manager's initializer.
-	init(withModel model: LocationModel) {
-		self.model = model
-	}
+	private init() {}
 	
 	// MARK: - Public methods
-	@discardableResult
-	public func fetch(from location: Location) async -> [UV]? {
-		do {
-			let data = try await self.client.fetch(at: location.coordinates)
-			
-			// Update the model
-			await model?.updateModel(newData: data)
-			
-			// Return data
-			return data
-		} catch {
-			logger.error("Failed to fetch UV data with error \(error.localizedDescription)")
-			
-			await model?.updateWithError()
-			return nil
-		}
+	public func fetch(at location: Location) async throws -> [UV] {
+		try await fetch(at: location.coordinates.asCLLocation)
+	}
+	
+	public func fetch(at location: CLLocation) async throws -> [UV] {
+		let weather = try await WeatherService.shared.weather(for: location)
+		
+		logger.debug("Fetched new UV data for \(location, privacy: .sensitive(mask: .hash))")
+		
+		return UV.from(weather)
 	}
 	
 	

@@ -41,19 +41,24 @@ class LocationManager: NSObject {
 		
 		self.manager.delegate = self
 		self.manager.desiredAccuracy = kCLLocationAccuracyReduced
-		self.manager.distanceFilter = 2000
-		
-		#if !os(watchOS)
-		self.manager.pausesLocationUpdatesAutomatically = true
-		#endif
+//		self.manager.distanceFilter = 2000
+//		
+//		#if !os(watchOS)
+//		self.manager.pausesLocationUpdatesAutomatically = true
+//		self.manager.showsBackgroundLocationIndicator = false
+//		self.manager.allowsBackgroundLocationUpdates = true
+//		#endif
 		
 		self.manager.requestWhenInUseAuthorization()
-		self.manager.startUpdatingLocation()
+		
+		beginMonitoring()
 	}
 	
 	// MARK: - Public Methods
 	public func assign(_ model: Store) {
 		self.model = model
+		
+		loadLastLocation()
 	}
 	
 	public func requestLocation() async throws -> Location {
@@ -63,19 +68,12 @@ class LocationManager: NSObject {
 		}
 	}
 	
-	public func reverseGeocode(from placemark: CLPlacemark) async -> CLPlacemark? {
-		guard let location = placemark.location else { return nil }
-		
-		do {
-			let geocode = try await reverseGeocode(location)
-			
-			guard let place = geocode.first else { return nil }
-			
-			return place
-		} catch {
-			logger.error("Failed to reverse geocode \(location) with error \(error.localizedDescription)")
-			return nil
-		}
+	public func beginMonitoring() {
+		self.manager.startMonitoringSignificantLocationChanges()
+	}
+	
+	public func cancelMonitoring() {
+		self.manager.stopMonitoringSignificantLocationChanges()
 	}
 	
 	// MARK: - Private Methods
@@ -83,11 +81,23 @@ class LocationManager: NSObject {
 	private func reverseGeocode(_ location: CLLocation) async throws -> [CLPlacemark] {
 		try await geocoder.reverseGeocodeLocation(location)
 	}
+	
+	private func loadLastLocation() {
+		guard let location = UserData.loadLastLocation() else {
+			return
+		}
+		
+		Task {
+			await model?.updateModel(with: location)
+		}
+	}
 }
 
 extension LocationManager: CLLocationManagerDelegate {
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		logger.debug("didUpdateLocations")
+		
 		guard let model = model else {
 			locationContinuation?.resume(throwing: LocationError.noModel)
 			return
@@ -99,6 +109,8 @@ extension LocationManager: CLLocationManagerDelegate {
 		
 		Task {
 			do {
+				// TODO: This results in no location being returned if out in the sea or no name can be found.
+			
 				let geocode = try await reverseGeocode(location)
 				
 				guard let place = geocode.first else {
@@ -113,6 +125,8 @@ extension LocationManager: CLLocationManagerDelegate {
 				
 				await model.updateModel(with: formattedLocation)
 				
+				UserData.saveLocation(formattedLocation)
+				
 				locationContinuation?.resume(returning: formattedLocation)
 			} catch {
 				locationContinuation?.resume(throwing: LocationError.noData)
@@ -121,10 +135,14 @@ extension LocationManager: CLLocationManagerDelegate {
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		logger.debug("didFailWithError")
+		
 		locationContinuation?.resume(throwing: error)
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+		logger.debug("didChangeAuthorization")
+		
 		switch status {
 		case .restricted, .denied:
 			Task { await model?.disableLocationFeatures() }
@@ -136,6 +154,7 @@ extension LocationManager: CLLocationManagerDelegate {
 			
 		case .notDetermined:
 			// User has not picked an authorization status
+			Task { await model?.disableLocationFeatures() }
 			break
 			
 		@unknown default:

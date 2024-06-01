@@ -67,12 +67,12 @@ enum InformationType: CaseIterable {
 
 extension InformationType: Identifiable {
 	var id: String {
-		"\(self.title)"
+		String(localized: self.title)
 	}
 }
 
 extension InformationType {
-	var title: LocalizedStringKey {
+	var title: LocalizedStringResource {
 		switch self {
 		case .introduction:
 			return "uv.faq.1.title"

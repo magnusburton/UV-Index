@@ -38,7 +38,7 @@ struct DataView: View {
 		.onAppear {
 			self.updateTime()
 		}
-		.onChange(of: scenePhase) { newPhase in
+		.onChange(of: scenePhase) { _, newPhase in
 			guard newPhase == .active else { return }
 			
 			self.updateTime()

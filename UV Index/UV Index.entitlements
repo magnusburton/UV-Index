@@ -4,5 +4,11 @@
 <dict>
 	<key>com.apple.developer.siri</key>
 	<true/>
+	<key>com.apple.developer.weatherkit</key>
+	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.magnusburton.UV-Index</string>
+	</array>
 </dict>
 </plist>

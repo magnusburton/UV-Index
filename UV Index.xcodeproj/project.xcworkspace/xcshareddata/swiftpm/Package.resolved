@@ -1,12 +1,13 @@
 {
+  "originHash" : "e57452d45519ad3729accce2a9f923bd5f66ad8b08512e27931c9791c5d9fbb6",
   "pins" : [
     {
       "identity" : "swift-algorithms",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-algorithms.git",
       "state" : {
-        "revision" : "b14b7f4c528c942f121c8b860b9410b2bf57825e",
-        "version" : "1.0.0"
+        "revision" : "f6919dfc309e7f1b56224378b11e28bab5bccc42",
+        "version" : "1.2.0"
       }
     },
     {
@@ -19,6 +20,15 @@
       }
     },
     {
+      "identity" : "swiftclient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TelemetryDeck/SwiftClient",
+      "state" : {
+        "revision" : "d20ccc4b8266cf739eede58cdfc7e9c6ffb41cda",
+        "version" : "1.5.1"
+      }
+    },
+    {
       "identity" : "swiftui-extensions",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tailang/swiftui-extensions",
@@ -28,5 +38,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

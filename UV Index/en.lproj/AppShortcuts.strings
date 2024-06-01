@@ -1,0 +1,17 @@
+/* 
+  AppShortcuts.strings
+  UV Index
+
+  Created by Magnus Burton on 2023-03-16.
+  
+*/
+
+//"Get current ${applicationName}" = "Get current ${applicationName}";
+//"Get ${applicationName}" = "Get ${applicationName}";
+//"What is the ${applicationName}?" = "What is the ${applicationName}?";
+
+//"Get current UV Index" = "Get current ${applicationName}";
+//"Current UV Index" = "Current ${applicationName}";
+//"Returns the current UV Index at a chosen location." = "Returns the current ${applicationName} at a chosen location.";
+
+//"UV Index in %@" = "${applicationName} in %@";

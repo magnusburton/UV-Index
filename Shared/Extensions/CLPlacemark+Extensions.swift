@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import Algorithms
+import Contacts
 
 extension CLPlacemark {
 	var formatted: String? {
@@ -35,8 +36,10 @@ extension CLPlacemark {
 	var formattedSubtitle: String? {
 		let attributes: [String?] = [
 			self.name,
+			self.locality,
 			self.subAdministrativeArea,
-			self.administrativeArea
+//			self.administrativeArea,
+//			self.country
 		]
 		
 		var cleanedAttributes = attributes.uniqued().compactMap({ $0 })

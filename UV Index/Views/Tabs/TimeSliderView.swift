@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TelemetryClient
 
 struct TimeSliderView: View {
 	@State private var circlePosition = CGSize(width: 0, height: 0)
@@ -53,22 +54,26 @@ struct TimeSliderView: View {
 							let feedback = UIImpactFeedbackGenerator(style: .rigid)
 							feedback.impactOccurred()
 						}))
-						.onAppear(perform: {
+						.onChange(of: model.resetSliderDate, {
+							resetSlider(height: geometry.size.height)
+						})
+						.onAppear {
 							let height = geometry.size.height
 							let sliderHeight = height - 2*outerPadding
 							
 							circlePosition = CGSize(width: 0, height: -sliderHeight/2)
-						})
-						.onChange(of: model.resetSliderDate) { _ in
-							resetSlider(height: geometry.size.height)
+						}
+						.onChange(of: isDragging) { oldValue, newValue in
+							switch (oldValue, newValue) {
+								case (false, true):
+									TelemetryManager.send("holdSlider")
+								case (true, false):
+									TelemetryManager.send("releaseSlider")
+								default:
+									return
+							}
 						}
 				}
-//				.accessibilityRepresentation {
-//					DatePicker("Pick a date and time to view future levels",
-//							   selection: $model.date,
-//							   in: accessibilityRange,
-//							   displayedComponents: [.date, .hourAndMinute])
-//				}
 				
 				RoundedRectangle(cornerRadius: 5)
 					.fill(LinearGradient(gradient: Gradient(colors: gradientColors),
@@ -171,17 +176,17 @@ struct TimeSliderView: View {
 		}
 		
 		let now = model.now
-		let dragY = value.location.y
 		let sliderHeight = height - 2*outerPadding
+		let dragY = value.location.y
 		var y: CGFloat = -sliderHeight/2
 		
 		// Limit slider from leaving the slider
-		if dragY < 0 {
+		if dragY < -sliderHeight/2 {
 			y = -sliderHeight/2
-		} else if dragY > sliderHeight {
+		} else if dragY > sliderHeight/2 {
 			y = sliderHeight/2
 		} else {
-			y = dragY-sliderHeight/2
+			y = dragY
 		}
 		
 		// Update slider position

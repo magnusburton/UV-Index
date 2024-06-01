@@ -6,6 +6,8 @@
 	<array>
 		<string>com.magnusburton.UV-Index.refresh</string>
 	</array>
+	<key>INAlternativeAppName</key>
+	<string>UV Index</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSLocationDefaultAccuracyReduced</key>

@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import AppIntents
 
 struct LocationTabView: View {
 	@StateObject private var model: LocationModel
 	
+	let location: Location
+	
 	init(location: Location) {
+		self.location = location
 		_model = StateObject(wrappedValue: LocationModel(location, isUserLocation: false))
 	}
 	
 	var body: some View {
 		DataView(model: model)
+			.task {
+				let intent = GetUVIndexAtLocation()
+				intent.location = location.placemark
+				IntentDonationManager.shared.donate(intent: intent)
+			}
 	}
 }
 

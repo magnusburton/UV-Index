@@ -7,3 +7,4 @@
 */
 
 NSLocationWhenInUseUsageDescription = "Location is needed to fetch the current UV index at your location.";
+//NSLocationAlwaysAndWhenInUseUsageDescription = "Location is needed to fetch the current UV index at your location, and to update this data when your location changes. Always on location permissions let's you receive notifications for high UV Index wherever you are.";

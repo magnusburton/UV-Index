@@ -22,7 +22,7 @@ struct GradientText: View {
 struct GradientText_Previews: PreviewProvider {
     static var previews: some View {
 		GradientText(
-			text: Text("Gradient Text Effect"),
+			text: Text("Gradient Text Effect 123"),
 			gradient: LinearGradient(gradient: Gradient(colors: [.green, .blue,.purple,]), startPoint: .topTrailing, endPoint: .bottomLeading)
 		)
     }

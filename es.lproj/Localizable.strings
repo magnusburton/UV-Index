@@ -1,0 +1,255 @@
+/* No comment provided by engineer. */
+"-" = "-";
+
+/* No comment provided by engineer. */
+"?" = "?";
+
+/* Localizable.strings
+  UV Index
+
+  Created by Magnus Burton on 2021-06-13. */
+"%@" = "%@";
+
+/* (No Comment) */
+"%@ (%@)" = "%@ (%@)";
+
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
+/* (No Comment) */
+"Add" = "Agregar";
+
+/* (No Comment) */
+"Add location" = "Agregar ubicación";
+
+/* (No Comment) */
+"Apply sunscreen if you're outside. Peak levels of %@ between %@." = "Aplica protector solar si estás afuera. Niveles máximos de %@ entre %@.";
+
+/* (No Comment) */
+"Apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Aplica protector solar si estás afuera. Niveles máximos de %@ entre %@. De lo contrario, niveles moderados entre %@.";
+
+/* No comment provided by engineer. */
+"at %@" = "en %@";
+
+/* (No Comment) */
+"Cancel" = "Cancelar";
+
+/* No comment provided by engineer. */
+"Chart representing upcoming 48 hours of UV Index data" = "Gráfico representando las próximas 48 horas de datos del índice UV";
+
+/* (No Comment) */
+"Current location" = "Ubicación actual";
+
+/* No comment provided by engineer. */
+"Current UV Index" = "Índice UV actual";
+
+/* Widget */
+"Currently" = "Actualmente";
+
+/* (No Comment) */
+"Daily report" = "Informe diario";
+
+/* (No Comment) */
+"Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Informes diarios entregados a las **%@** en días con niveles de **%@** o superiores.";
+
+/* (No Comment) */
+"Daily reports delivered daily at **%@**." = "Informes diarios entregados todos los días a las **%@**.";
+
+/* (No Comment) */
+"Delete" = "Eliminar";
+
+/* (No Comment) */
+"Delivery time" = "Hora de entrega";
+
+/* (No Comment) */
+"Done" = "Hecho";
+
+/* (No Comment) */
+"Extreme risk of harm with peak levels of %@ between %@." = "Riesgo extremo de daño con niveles máximos de %@ entre %@.";
+
+/* (No Comment) */
+"Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Riesgo extremo de daño con niveles máximos de %@ entre %@. De lo contrario, niveles altos entre %@.";
+
+/* (No Comment) */
+"General settings" = "Configuración general";
+
+/* Notifications */
+"High levels" = "Niveles altos de UV";
+
+/* (No Comment) */
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@." = "Niveles altos de radiación UV, aplica protector solar si estás afuera. Niveles máximos de %@ entre %@.";
+
+/* (No Comment) */
+"High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Niveles altos de radiación UV, aplica protector solar si estás afuera. Niveles máximos de %@ entre %@. De lo contrario, niveles moderados entre %@.";
+
+/* No comment provided by engineer. */
+"Insufficient location permissions." = "Permisos de ubicación insuficientes.";
+
+/* (No Comment) */
+"Insufficient permissions." = "Permisos insuficientes.";
+
+/* No comment provided by engineer. */
+"It's currently index %lld" = "Actualmente es índice %lld";
+
+/* Body of high level notifications */
+"Levels of index %@ until %@" = "Niveles del índice %@ hasta %@.";
+
+/* (No Comment) */
+"Location" = "Ubicación";
+
+/* Location */
+"Location permission not granted" = "Permiso de ubicación no concedido";
+
+/* (No Comment) */
+"location.permission.denied.description" = "UV Index necesita acceder a tu ubicación para mostrar los niveles de UV en tu ubicación actual.";
+
+/* (No Comment) */
+"location.permission.denied.description2" = "Comparte tu ubicación actual una vez o revisa los permisos para compartir tu ubicación al usar la aplicación.";
+
+/* (No Comment) */
+"location.permission.denied.label" = "Revisar permisos";
+
+/* (No Comment) */
+"location.permission.denied.title" = "Permiso de ubicación no concedido";
+
+/* (No Comment) */
+"Low levels all day. Peak levels of %@ between %@." = "Niveles bajos todo el día. Niveles máximos de %@ entre %@.";
+
+/* (No Comment) */
+"Missing valid data model." = "Modelo de datos válido faltante.";
+
+/* LocationError */
+"Missing valid data." = "Datos válidos faltantes.";
+
+/* (No Comment) */
+"Missing valid timezone data." = "Datos válidos de zona horaria faltantes.";
+
+/* No comment provided by engineer. */
+"Missing valid UV data." = "Faltan datos UV válidos.";
+
+/* (No Comment) */
+"My locations" = "Mis ubicaciones";
+
+/* No comment provided by engineer. */
+"No upcoming UV." = "No hay índice UV próximo.";
+
+/* (No Comment) */
+"Notifications" = "Notificaciones";
+
+/* (No Comment) */
+"Notifications sent for levels **%@** and higher." = "Notificaciones enviadas para niveles **%@** y superiores.";
+
+/* (No Comment) */
+"Oops!" = "¡Ups!";
+
+/* No comment provided by engineer. */
+"Opens the app and shows the UV Index at your location." = "Abre la aplicación y muestra el índice UV en tu ubicación.";
+
+/* API */
+"Other data sources" = "Otras fuentes de datos";
+
+/* (No Comment) */
+"Press here to change location!" = "¡Presiona aquí para cambiar la ubicación!";
+
+/* No comment provided by engineer. */
+"Returns the current UV Index at a chosen location." = "Devuelve el índice UV actual en una ubicación seleccionada.";
+
+/* (No Comment) */
+"Review notification permissions" = "Revisar permisos de notificación";
+
+/* (No Comment) */
+"Search for a city or an airport" = "Buscar una ciudad o un aeropuerto";
+
+/* (No Comment) */
+"Search results" = "Resultados de búsqueda";
+
+/* Settings */
+"Settings" = "Configuración";
+
+/* (No Comment) */
+"settings.attribution.title" = "Datos meteorológicos de:";
+
+/* (No Comment) */
+"shareLocation.header" = "Incluir ubicación al compartir";
+
+/* No comment provided by engineer. */
+"Show the UV Index at my location" = "Mostrar el Índice UV en mi ubicación";
+
+/* (No Comment) */
+"theme.dark.text" = "Oscuro";
+
+/* (No Comment) */
+"theme.header" = "Tema";
+
+/* (No Comment) */
+"theme.light.text" = "Claro";
+
+/* (No Comment) */
+"theme.system.text" = "Automático";
+
+/* (No Comment) */
+"Unknown location" = "Ubicación desconocida";
+
+/* Title for daily overview notification */
+"Upcoming UV levels" = "Próximos niveles de UV";
+
+/* No comment provided by engineer. */
+"UV" = "UV";
+
+/* No comment provided by engineer. */
+"UV %lld until %@" = "UV %lld hasta %@";
+
+/* (No Comment) */
+"UV Index" = "Índice UV";
+
+/* No comment provided by engineer. */
+"UV index %@" = "Índice UV %@";
+
+/* No comment provided by engineer. */
+"UV unavailable" = "UV no disponible";
+
+/* (No Comment) */
+"uv.description.extreme" = "Riesgo extremo de daño.";
+
+/* (No Comment) */
+"uv.description.high" = "Alto riesgo de daño.";
+
+/* (No Comment) */
+"uv.description.low" = "Niveles bajos.";
+
+/* (No Comment) */
+"uv.description.moderate" = "Protégete con protector solar.";
+
+/* UV */
+"uv.description.none" = "Sin riesgo.";
+
+/* (No Comment) */
+"uv.description.veryHigh" = "Riesgo muy alto de daño.";
+
+/* (No Comment) */
+"uv.faq.1.content" = "El Índice UV (IUV) es una medida del nivel de radiación UV. El índice varía de cero en adelante. Un nivel más alto aumenta el riesgo de daño en la piel y los ojos. También disminuye el tiempo necesario para que ocurra el daño.";
+
+/* (No Comment) */
+"uv.faq.1.title" = "¿Qué es el Índice UV?";
+
+/* (No Comment) */
+"uv.faq.2.content" = "Para la mayoría de las personas, incluso aquellas con piel sensible, el riesgo de daño por UV con un IUV de 2 o menos es limitado. En su mayor parte, no son necesarias medidas de protección durante estos niveles. Para niveles superiores a un IUV de 2, es posible que se necesite protección, según tu tipo de piel. Estos medios de protección incluyen ropa, gafas de sol, protector solar y sombra.";
+
+/* (No Comment) */
+"uv.faq.2.title" = "Cómo protegerse";
+
+/* (No Comment) */
+"uv.faq.source %@" = "Fuente: %@";
+
+/* (No Comment) */
+"uv.faq.source.who" = "Organización Mundial de la Salud (OMS)";
+
+/* (No Comment) */
+"uv.medical" = "Esta aplicación proporciona solo información y no constituye un consejo médico o de tratamiento, ni puede ser tratada como tal por el usuario. Por lo tanto, esta aplicación no puede ser considerada como un diagnóstico médico o una recomendación para el cuidado o tratamiento médico. La información en esta aplicación no es un sustituto del consejo médico profesional, diagnóstico o tratamiento. Todo el contenido, incluido texto, gráficos, imágenes e información disponible a través de esta aplicación, es solo para fines informativos generales.";
+
+/* (No Comment) */
+"uv.medical.title" = "Información médica";
+
+/* (No Comment) */
+"widget.currentLocation.description" = "Ver los niveles actuales en tu ubicación.";
+

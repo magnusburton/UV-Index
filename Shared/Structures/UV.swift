@@ -7,11 +7,12 @@
 
 import Foundation
 import SwiftUI
+import WeatherKit
 
-class UV: Codable {
-	var index: Int
-	var date: Date
-	var duration: TimeInterval
+final class UV: Codable, Sendable {
+	let index: Int
+	let date: Date
+	let duration: TimeInterval
 	
 	var endDate: Date {
 		date.addingTimeInterval(duration)
@@ -76,11 +77,13 @@ class UV: Codable {
 	}
 	
 	var color: Color {
-		var index = self.index
-		
-		if index > 11 {
-			index = 11
-		} else if index <= 0 {
+		UV.color(from: self.index)
+	}
+	
+	static func color(from value: Int) -> Color {
+		let index = min(value, 11)
+
+		if index <= 0 {
 			// Custom color for zero UV
 			return Color(hue: 150/360, saturation: 1, brightness: 0.8)
 		}
@@ -88,11 +91,9 @@ class UV: Codable {
 		let percentage = Double(index) / 11
 		
 		// When index is zero
-//		let startHue = 120.0
 		let startHue = 135.0
 		
 		// When index is 11 (or higher)
-//		let endHue = 300.0
 		let endHue = 280.0
 		
 		// Distance between startHue and endHue the long way
@@ -107,11 +108,31 @@ class UV: Codable {
 			return Color(hue: scaledDistance / 360, saturation: 1, brightness: 0.8)
 		}
 	}
+	
+	static func from(_ weather: Weather) -> [UV] {
+		weather.hourlyForecast.forecast.map {
+			UV(index: $0.uvIndex.value, date: $0.date)
+		}
+	}
+}
+
+extension UV: Identifiable {
+	var id: Int {
+		"\(date.timeIntervalSince1970).\(index).\(duration)".hashValue
+	}
 }
 
 extension UV: Equatable {
 	static func == (lhs: UV, rhs: UV) -> Bool {
 		lhs.index == rhs.index && lhs.date == rhs.date
+	}
+}
+
+extension UV: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(self.index)
+		hasher.combine(self.date)
+		hasher.combine(self.duration)
 	}
 }
 

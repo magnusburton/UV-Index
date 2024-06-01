@@ -1,0 +1,18 @@
+/* No comment provided by engineer. */
+"Get ${applicationName}" = "Obtenir ${applicationName}";
+
+/* No comment provided by engineer. */
+"Get ${applicationName} at ${location}" = "Obtenir ${applicationName} à ${location}";
+
+/* No comment provided by engineer. */
+"Get current ${applicationName}" = "Obtenir ${applicationName} actuel";
+
+/* No comment provided by engineer. */
+"Get current ${applicationName} at ${location}" = "Obtenir ${applicationName} actuel à ${location}";
+
+/* No comment provided by engineer. */
+"What is the ${applicationName} at ${location}?" = "Qu'est-ce que ${applicationName} à ${location} ?";
+
+/* No comment provided by engineer. */
+"What is the ${applicationName}?" = "Qu'est-ce que ${applicationName} ?";
+

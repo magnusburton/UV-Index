@@ -14,7 +14,7 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
 	enum LocationStatus: Equatable {
 		case idle
 		case noResults
-		case isSearching
+		case searching
 		case error(String)
 		case result
 	}
@@ -29,7 +29,7 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
 	override init() {
 		completer = MKLocalSearchCompleter()
 		completer.resultTypes = [.address, .pointOfInterest]
-		completer.pointOfInterestFilter = .init(including: [.airport])
+//		completer.pointOfInterestFilter = .init(including: [.airport])
 		
 		super.init()
 		
@@ -52,7 +52,6 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
 		}
 	}
 	
-	@MainActor
 	func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
 		self.completions = completer.results
 	}

@@ -18,7 +18,7 @@ struct NotificationSliderView: View {
 			.frame(height: 5)
 			.cornerRadius(5)
 		)
-		.onChange(of: value) { _ in
+		.onChange(of: value) {
 			let feedback = UISelectionFeedbackGenerator()
 			feedback.selectionChanged()
 		}

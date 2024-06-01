@@ -1,91 +1,258 @@
-/* 
-  Localizable.strings
+/* No comment provided by engineer. */
+"-" = "-";
+
+/* No comment provided by engineer. */
+"?" = "?";
+
+/* Localizable.strings
   UV Index
 
-  Created by Magnus Burton on 2021-06-13.
-  
-*/
+  Created by Magnus Burton on 2021-06-13. */
+"%@" = "%@";
 
-// Location
-"Location permission not granted" = "Åtkomst till platsinfo ej tillgänglig";
-"Unknown location" = "Okänd plats";
-"Done" = "Klar";
-"Current location" = "Nuvarande plats";
-"Location" = "Plats";
-"Press here to change location!" = "Klicka här för att byta plats";
-"Search for a city or an airport" = "Sök efter stad eller flygplats";
-"Cancel" = "Avbryt";
+/* (No Comment) */
+"%@ (%@)" = "%@ (%@)";
+
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
+/* (No Comment) */
 "Add" = "Lägg till";
 
-"Delete" = "Radera";
-"Search results" = "Sökresultat";
-"My locations" = "Sparade platser";
+/* (No Comment) */
+"Add location" = "Lägg till plats";
 
-"location.permission.denied.title" = "Åtkomst till platsinfo ej tillgänglig";
-"location.permission.denied.description" = "UV Index måste komma åt din plats för att visa UV-nivåerna på din nuvarande plats.\n\nOm du inte vill dela din plats kan du se UV-nivåerna på andra platser som du väljer genom att söka efter dem.";
-"location.permission.denied.label" = "Granska åtkomst";
-
-// Settings
-"Settings" = "Inställningar";
-"General settings" = "Generella inställningar";
-
-"theme.header" = "Tema";
-"theme.system.text" = "Använd systeminställningar";
-"theme.light.text" = "Ljust";
-"theme.dark.text" = "Mörkt";
-
-"Review notification permissions" = "Hantera notisinställningar";
-"Notifications" = "Notiser";
-
-"High levels" = "Höga nivåer";
-"Notifications sent for levels **%@** and higher." = "Notiser skickas vid nivå **%@** och högre.";
-
-"Daily report" = "Daglig rapport";
-"Delivery time" = "Leveranstid";
-"Daily reports delivered daily at **%@**." = "Dagliga rapporter levereras dagligen **%@**.";
-"Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Dagliga rapporter levereras **%@** på dagar med nivåer från **%@** eller högre.";
-
-// API
-"UV Index is powered by Dark Sky" = "UV Index hämtar data från Dark Sky";
-
-// Widget
-"Currently" = "Just nu";
-"widget.currentLocation.description" = "Se de aktuella nivåerna vid din nuvarande plats.";
-
-// UV
-"uv.description.none" = "Inga risker.";
-"uv.description.low" = "Låga nivåer.";
-"uv.description.moderate" = "Måttlig risk. Skydda dig med solkräm.";
-"uv.description.high" = "Hög risk för skada.";
-"uv.description.veryHigh" = "Väldigt höga nivåer.";
-"uv.description.extreme" = "Extremt hög risk för skada.";
-
-"uv.faq.source.who" = "Världshälsoorganisationen (WHO)";
-
-"uv.faq.source %@" = "Källa: %@";
-
-"uv.faq.1.title" = "Vad är UV Index?";
-"uv.faq.1.content" = "UV Index (UVI) är ett mått på UV-strålningsnivån. Indexet sträcker sig från noll och uppåt. En högre nivå ökar risken för hud- och ögonskador. En högre nivå minskar också tiden det tar för skada att inträffa.";
-
-"uv.faq.2.title" = "Hur kan du skydda dig";
-"uv.faq.2.content" = "För de flesta, även de med känslig hud, är risken för UV-skador från UVI 2 eller lägre begränsad. För det mesta behövs inga skyddsåtgärder vid dessa nivåer. För nivåer över ett UVI på 2 kan skydd behövas, beroende på din hudtyp. Dessa skyddsmedel inkluderar kläder, solglasögon, solkräm och skugga.";
-
-"uv.medical.title" = "Medicinsk information";
-"uv.medical" = "Denna app tillhandahåller endast information, är inte medicinsk eller behandlingsråd, och får inte behandlas som sådan av användaren. Som sådan kan denna app inte litas på för medicinsk diagnos eller som en rekommendation för medicinsk vård eller behandling. Informationen på den här appen är inte en ersättning för professionell medicinsk rådgivning, diagnos eller behandling. Allt innehåll, inklusive text, grafik, bilder och information, som är tillgängligt via den här appen är endast avsett för allmän information.";
-
-// Notifications
-"High levels" = "Höga UV-nivåer";
-"Levels of index %@ until %@" = "Index %@ fram till %@.";
-
-"Upcoming UV levels" = "Kommande UV-nivåer";
-
-"Low levels all day. Peak levels of %@ between %@." = "Låga nivåer hela dagen. Högsta nivån är %@ mellan %@.";
-
+/* (No Comment) */
 "Apply sunscreen if you're outside. Peak levels of %@ between %@." = "Skydda dig med solkräm om du vistas utomhus. Högsta nivån idag är %@ mellan %@.";
+
+/* (No Comment) */
 "Apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Skydda dig med solkräm om du vistas utomhus. Högsta nivån idag är %@ mellan %@. Annars måttliga nivåer mellan %@.";
 
+/* No comment provided by engineer. */
+"at %@" = "i %@";
+
+/* (No Comment) */
+"Cancel" = "Avbryt";
+
+/* No comment provided by engineer. */
+"Chart representing upcoming 48 hours of UV Index data" = "Graf visar de kommande 48 timmarnas UV nivåer";
+
+/* (No Comment) */
+"Current location" = "Nuvarande plats";
+
+/* No comment provided by engineer. */
+"Current UV Index" = "Nuvarande UV Index";
+
+/* Widget */
+"Currently" = "Just nu";
+
+/* (No Comment) */
+"Daily report" = "Daglig rapport";
+
+/* (No Comment) */
+"Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Dagliga rapporter levereras **%@** på dagar med nivåer från **%@** eller högre.";
+
+/* (No Comment) */
+"Daily reports delivered daily at **%@**." = "Dagliga rapporter levereras dagligen **%@**.";
+
+/* (No Comment) */
+"Delete" = "Radera";
+
+/* (No Comment) */
+"Delivery time" = "Leveranstid";
+
+/* (No Comment) */
+"Done" = "Klar";
+
+/* (No Comment) */
+"Extreme risk of harm with peak levels of %@ between %@." = "Extremt skadliga nivåer på index %@ mellan %@.";
+
+/* (No Comment) */
+"Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Extremt hög risk för skada med högsta nivåerna på %@ mellan %@. Annars är det även skadliga nivåer mellan %@.";
+
+/* (No Comment) */
+"General settings" = "Generella inställningar";
+
+/* No comment provided by engineer. */
+"Gradient Text Effect 123" = "Gradient Text Effect 123";
+
+/* Notifications */
+"High levels" = "Höga UV-nivåer";
+
+/* (No Comment) */
 "High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@." = "Hög UV-strålningsnivå, använd solskydd utomhus. Högsta nivån är idag %@ mellan %@.";
+
+/* (No Comment) */
 "High levels of UV radiation, apply sunscreen if you're outside. Peak levels of %@ between %@. Otherwise moderate levels between %@." = "Hög UV-strålningsnivå, använd solskydd utomhus. Högsta nivån är %@ mellan %@. Annars är det även skadliga nivåer mellan %@.";
 
-"Extreme risk of harm with peak levels of %@ between %@." = "Extremt skadliga nivåer på index %@ mellan %@.";
-"Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Extremt hög risk för skada med högsta nivåerna på %@ mellan %@. Annars är det även skadliga nivåer mellan %@.";
+/* No comment provided by engineer. */
+"Insufficient location permissions." = "Saknar platsåtkomst.";
+
+/* (No Comment) */
+"Insufficient permissions." = "Saknar åtkomst till plats.";
+
+/* No comment provided by engineer. */
+"It's currently index %lld" = "Just nu UV Index %lld";
+
+/* Body of high level notifications */
+"Levels of index %@ until %@" = "Index %@ fram till %@.";
+
+/* (No Comment) */
+"Location" = "Plats";
+
+/* Location */
+"Location permission not granted" = "Åtkomst till platsinfo ej tillgänglig";
+
+/* (No Comment) */
+"location.permission.denied.description" = "UV Index måste komma åt din plats för att visa UV-nivåerna på din nuvarande plats.";
+
+/* (No Comment) */
+"location.permission.denied.description2" = "Dela din nuvarande plats en gång eller dela din plats automatiskt när du använder appen.";
+
+/* (No Comment) */
+"location.permission.denied.label" = "Granska åtkomst";
+
+/* (No Comment) */
+"location.permission.denied.title" = "Åtkomst till platsinfo ej tillgänglig";
+
+/* (No Comment) */
+"Low levels all day. Peak levels of %@ between %@." = "Låga nivåer hela dagen. Högsta nivån är %@ mellan %@.";
+
+/* (No Comment) */
+"Missing valid data model." = "Ogiltig datamodell.";
+
+/* LocationError */
+"Missing valid data." = "Saknar data.";
+
+/* (No Comment) */
+"Missing valid timezone data." = "Saknar tidszon.";
+
+/* No comment provided by engineer. */
+"Missing valid UV data." = "Saknar UV data.";
+
+/* (No Comment) */
+"My locations" = "Sparade platser";
+
+/* No comment provided by engineer. */
+"No upcoming UV." = "Ingen kommande UV.";
+
+/* (No Comment) */
+"Notifications" = "Notiser";
+
+/* (No Comment) */
+"Notifications sent for levels **%@** and higher." = "Notiser skickas vid nivå **%@** och högre.";
+
+/* (No Comment) */
+"Oops!" = "Oops!";
+
+/* No comment provided by engineer. */
+"Opens the app and shows the UV Index at your location." = "Öppnar appen och visar UV Index vid dig.";
+
+/* API */
+"Other data sources" = "Övriga datakällor";
+
+/* (No Comment) */
+"Press here to change location!" = "Klicka här för att byta plats";
+
+/* No comment provided by engineer. */
+"Returns the current UV Index at a chosen location." = "Hämtar nuvarande UV Index vid en vald plats.";
+
+/* (No Comment) */
+"Review notification permissions" = "Hantera notisinställningar";
+
+/* (No Comment) */
+"Search for a city or an airport" = "Sök efter stad eller flygplats";
+
+/* (No Comment) */
+"Search results" = "Sökresultat";
+
+/* Settings */
+"Settings" = "Inställningar";
+
+/* (No Comment) */
+"settings.attribution.title" = "Väderdata från:";
+
+/* (No Comment) */
+"shareLocation.header" = "Inkludera plats vid delning";
+
+/* No comment provided by engineer. */
+"Show the UV Index at my location" = "Se UV Index vid min plats";
+
+/* (No Comment) */
+"theme.dark.text" = "Mörkt";
+
+/* (No Comment) */
+"theme.header" = "Tema";
+
+/* (No Comment) */
+"theme.light.text" = "Ljust";
+
+/* (No Comment) */
+"theme.system.text" = "Automatiskt";
+
+/* (No Comment) */
+"Unknown location" = "Okänd plats";
+
+/* Title for daily overview notification */
+"Upcoming UV levels" = "Kommande UV-nivåer";
+
+/* No comment provided by engineer. */
+"UV" = "UV";
+
+/* No comment provided by engineer. */
+"UV %lld until %@" = "UV %lld till %@";
+
+/* (No Comment) */
+"UV Index" = "UV Index";
+
+/* No comment provided by engineer. */
+"UV index %@" = "UV index %@";
+
+/* No comment provided by engineer. */
+"UV unavailable" = "UV otillgänglig";
+
+/* (No Comment) */
+"uv.description.extreme" = "Extremt hög risk för skada.";
+
+/* (No Comment) */
+"uv.description.high" = "Hög risk för skada.";
+
+/* (No Comment) */
+"uv.description.low" = "Låga nivåer.";
+
+/* (No Comment) */
+"uv.description.moderate" = "Måttlig risk. Skydda dig med solkräm.";
+
+/* UV */
+"uv.description.none" = "Ingen risk.";
+
+/* (No Comment) */
+"uv.description.veryHigh" = "Väldigt höga nivåer.";
+
+/* (No Comment) */
+"uv.faq.1.content" = "UV Index (UVI) är ett mått på UV-strålningsnivån. Indexet sträcker sig från noll och uppåt. En högre nivå ökar risken för hud- och ögonskador. En högre nivå minskar också tiden det tar för skada att inträffa.";
+
+/* (No Comment) */
+"uv.faq.1.title" = "Vad är UV Index?";
+
+/* (No Comment) */
+"uv.faq.2.content" = "För de flesta, även de med känslig hud, är risken för UV-skador från UVI 2 eller lägre begränsad. För det mesta behövs inga skyddsåtgärder vid dessa nivåer. För nivåer över ett UVI på 2 kan skydd behövas, beroende på din hudtyp. Dessa skyddsmedel inkluderar kläder, solglasögon, solkräm och skugga.";
+
+/* (No Comment) */
+"uv.faq.2.title" = "Hur kan du skydda dig";
+
+/* (No Comment) */
+"uv.faq.source %@" = "Källa: %@";
+
+/* (No Comment) */
+"uv.faq.source.who" = "Världshälsoorganisationen (WHO)";
+
+/* (No Comment) */
+"uv.medical" = "Denna app tillhandahåller endast information, är inte medicinsk eller behandlingsråd, och får inte behandlas som sådan av användaren. Som sådan kan denna app inte litas på för medicinsk diagnos eller som en rekommendation för medicinsk vård eller behandling. Informationen på den här appen är inte en ersättning för professionell medicinsk rådgivning, diagnos eller behandling. Allt innehåll, inklusive text, grafik, bilder och information, som är tillgängligt via den här appen är endast avsett för allmän information.";
+
+/* (No Comment) */
+"uv.medical.title" = "Medicinsk information";
+
+/* (No Comment) */
+"widget.currentLocation.description" = "Aktuellt index där du befinner dig.";
+

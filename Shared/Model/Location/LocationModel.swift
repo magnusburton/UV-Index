@@ -15,7 +15,7 @@ import MapKit
 
 @MainActor
 class LocationModel: ObservableObject {
-	lazy var weatherManager = WeatherManager(withModel: self)
+	lazy var weatherManager = WeatherManager.shared
 	lazy var locationManager = LocationManager.shared
 	lazy var notificationManager = NotificationManager.shared
 	lazy var userData = UserData.shared
@@ -43,10 +43,13 @@ class LocationModel: ObservableObject {
 	// MARK: - Initializers
 	
 	init(_ location: Location?, isUserLocation: Bool) {
+		logger.debug("init, location: \(location?.description ?? "nil")")
 		self.location = location
 		self.isUserLocation = isUserLocation
 		
 		if isUserLocation {
+			logger.debug("Location is user location")
+			
 			self.data = userData.data
 		}
 	}
@@ -55,14 +58,14 @@ class LocationModel: ObservableObject {
 	
 	// Schedule fetch for new data at chosen location
 	public func refresh(ignoreRecentFetches: Bool = false) async {
-		guard let location = location else {
+		guard let location else {
 			logger.error("No location set, cancelling UV fetch")
 			return
 		}
 		
 		if ignoreRecentFetches == false {
 			// Don't update if data were updated in the last 20 minutes
-			if let lastUpdate = lastUpdate {
+			if let lastUpdate {
 				guard Date() > lastUpdate.addingTimeInterval(20*60) else {
 					logger.error("Recently refreshed, cancelling UV fetch")
 					return
@@ -78,7 +81,20 @@ class LocationModel: ObservableObject {
 		}
 		
 		// Fetch new UV data
-		await weatherManager.fetch(from: location)
+		do {
+			let result = try await weatherManager.fetch(at: location)
+			
+			self.data = result
+		} catch {
+			logger.error("Fetching weather failed with \(error.localizedDescription)")
+			return
+		}
+		
+		// Set date when update occured
+		lastUpdate = .now
+		
+		// Update relevant intents
+		await updateRelevantIntents()
 		
 		#if canImport(WidgetKit)
 		// Update widget timeline
@@ -131,9 +147,15 @@ class LocationModel: ObservableObject {
 	public func updateLocation(_ newLocation: Location) {
 		logger.debug("Updating location in model")
 		
-		self.location = newLocation
-		
-		Task { await refresh(ignoreRecentFetches: true) }
+		if self.location != newLocation {
+			self.location = newLocation
+			
+			Task { await refresh(ignoreRecentFetches: true) }
+		} else {
+			logger.debug("Location update is not new.")
+			
+			Task { await refresh(ignoreRecentFetches: false) }
+		}
 	}
 	
 	// MARK: - Private methods
@@ -142,11 +164,13 @@ class LocationModel: ObservableObject {
 		if isUserLocation {
 			// Update UserDefaults if this model is assigned to the user's current location
 			userData.data = data
+			
+			WidgetCenter.shared.reloadAllTimelines()
 		}
 		
 		Task {
 			// Schedule relevant notifications. These'll be overridden whenever new ones are created
-			await scheduleNotifications()
+			await notificationManager.scheduleNotifications()
 		}
 	}
 }

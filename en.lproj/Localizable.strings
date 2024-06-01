@@ -6,6 +6,9 @@
   
 */
 
+"%@" = "%@";
+"UV Index" = "UV Index";
+
 // Location
 "Location permission not granted" = "Location permission not granted";
 "Unknown location" = "Unknown location";
@@ -16,13 +19,15 @@
 "Search for a city or an airport" = "Search for a city or an airport";
 "Cancel" = "Cancel";
 "Add" = "Add";
+"Add location" = "Add location";
 
 "Delete" = "Delete";
 "Search results" = "Search results";
 "My locations" = "My locations";
 
 "location.permission.denied.title" = "Location permission not granted";
-"location.permission.denied.description" = "UV Index need to access your location in order to show the UV levels at your current location.\n\nIf you don't want to share your location, you can view the UV levels at other locations of your choosing by searching for them.";
+"location.permission.denied.description" = "UV Index need to access your location in order to show the UV levels at your current location.";
+"location.permission.denied.description2" = "Share your current location once or review permissions to share your location when using the app.";
 "location.permission.denied.label" = "Review permissions";
 
 // Settings
@@ -30,9 +35,11 @@
 "General settings" = "General settings";
 
 "theme.header" = "Theme";
-"theme.system.text" = "Use system preference";
+"theme.system.text" = "Automatic";
 "theme.light.text" = "Light";
 "theme.dark.text" = "Dark";
+
+"shareLocation.header" = "Include location when sharing";
 
 "Review notification permissions" = "Review notification permissions";
 "Notifications" = "Notifications";
@@ -45,15 +52,20 @@
 "Daily reports delivered daily at **%@**." = "Daily reports delivered daily at **%@**.";
 "Daily reports delivered at **%@** on days with levels of **%@** or higher." = "Daily reports delivered at **%@** on days with levels of **%@** or higher.";
 
+"settings.attribution.title" = "Weather data from:";
+
+"%@ (%@)" = "%@ (%@)";
+
 // API
-"UV Index is powered by Dark Sky" = "UV Index is powered by Dark Sky";
+"Other data sources" = "Other data sources";
 
 // Widget
 "Currently" = "Currently";
 "widget.currentLocation.description" = "View the current levels at your location.";
+"Oops!" = "Oops!";
 
 // UV
-"uv.description.none" = "No risks.";
+"uv.description.none" = "No risk.";
 "uv.description.low" = "Low levels.";
 "uv.description.moderate" = "Protect yourself with sunscreen.";
 "uv.description.high" = "High risk of harm.";
@@ -89,3 +101,9 @@
 
 "Extreme risk of harm with peak levels of %@ between %@." = "Extreme risk of harm with peak levels of %@ between %@.";
 "Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@." = "Extreme risk of harm with peak levels of %@ between %@. Otherwise high levels between %@.";
+
+// LocationError
+"Missing valid data." = "Missing valid data.";
+"Missing valid timezone data." = "Missing valid timezone data.";
+"Missing valid data model." = "Missing valid data model.";
+"Insufficient permissions." = "Insufficient permissions.";

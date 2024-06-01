@@ -7,29 +7,37 @@
 
 import SwiftUI
 import CoreLocation
-import MapKit
+@preconcurrency import MapKit
 import Algorithms
-
-private let mapSize: Double = 50
+import AppIntents
 
 struct LocationSheetView: View {
 	@Environment(\.dismiss) private var dismiss
 	
 	@StateObject private var locationService = LocationSearchService()
+	@State private var locationSheetLocation: Location?
 	
 	@ObservedObject var store: Store
 	
-    var body: some View {
+	var body: some View {
 		NavigationView {
 			VStack {
+				//				SiriTipView(intent: GetUVIndexAtLocation())
+				//					.padding(.horizontal)
+				
 				List {
 					locationErrorView
 					
 					Section(header: Text("My locations")) {
+						if let currentLocation = store.currentLocation {
+							Button(action: currentLocationTapped) {
+								SavedLocationRowView(location: currentLocation, currentLocation: true)
+							}
+						}
+						
 						ForEach(store.savedLocations) { location in
 							Button(action: {
-								store.showLocationTab(location)
-								store.presentSheet = false
+								savedLocationTapped(location)
 							}) {
 								SavedLocationRowView(location: location)
 							}
@@ -44,16 +52,36 @@ struct LocationSheetView: View {
 							}
 						}
 					}
+					.isHidden(store.savedLocations.isEmpty && store.currentLocation == nil, remove: true)
 					
 					Section(header: Text("Search results")) {
-						ForEach(results, id: \.self) { completion in
-							Button(action: { update(completion) }) {
-								LocationSheetRowView(completion: completion)
+						if results.isEmpty {
+							ContentUnavailableView.search
+						} else {
+							ForEach(results.compactMap({ $0 }), id: \.self) { completion in
+								Button(action: { preview(completion) }) {
+									LocationSheetRowView(completion: completion)
+								}
 							}
 						}
 					}
+					.isHidden(locationService.query.isEmpty, remove: true)
 				}
 				.listStyle(.grouped)
+				.sheet(item: $locationSheetLocation) { location in
+					NavigationView {
+						LocationTabView(location: location)
+							.navigationBarItems(
+								leading: Button("Cancel") {
+									locationSheetLocation = nil
+								},
+								trailing:
+									Button("Add") {
+										addFavorite(location)
+									}
+							)
+					}
+				}
 			}
 			.searchable(text: $locationService.query,
 						placement: .navigationBarDrawer(displayMode: .always),
@@ -67,42 +95,67 @@ struct LocationSheetView: View {
 					}
 			)
 		}
-    }
+	}
 	
 	private var results: [MKLocalSearchCompletion] {
 		locationService.completions
 	}
 	
-	private func update(_ completion: MKLocalSearchCompletion?) {
-		guard let completion = completion else {
+	private func addFavorite(_ location: Location) {
+		withOptionalAnimation {
+			locationSheetLocation = nil
+			store.addLocation(location)
+		}
+		
+		dismiss()
+		locationService.query = ""
+	}
+	
+	private func preview(_ completion: MKLocalSearchCompletion) {
+		Task {
+			await preview(completion)
+		}
+	}
+	
+	private func preview(_ completion: MKLocalSearchCompletion) async {
+		let mapItem = await locationService.getMapItem(from: completion)
+		
+		guard let mapItem else {
+			debugPrint("Invalid mapItem")
 			return
 		}
 		
-		Task {
-			let mapItem = await locationService.getMapItem(from: completion)
-			
-			guard let location = Location(from: mapItem) else {
-				return
-			}
-			
-			withOptionalAnimation {
-				store.addLocation(location)
-			}
-			
-			dismiss()
+		guard let location = Location(from: mapItem) else {
+			debugPrint("Invalid mapItem")
+			return
+		}
+		
+		
+
+		debugPrint("Opening mapItem")
+		withOptionalAnimation {
+			locationSheetLocation = location
 		}
 	}
 	
 	@ViewBuilder
 	private var locationErrorView: some View {
 		if store.authorized == false || store.currentLocation == nil {
-			UnknownLocationView()
+			UnknownLocationView(store: store)
 		}
+	}
+	
+	private func currentLocationTapped() {
+		store.showCurrentLocationTab()
+	}
+	
+	private func savedLocationTapped(_ location: Location) {
+		store.showLocationTab(location)
 	}
 }
 
 struct LocationSheetView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		LocationSheetView(store: Store.shared)
 		
 		Group {
@@ -115,26 +168,20 @@ struct LocationSheetView_Previews: PreviewProvider {
 													timeZone: .current))
 		}
 		.previewLayout(.fixed(width: 300, height: 200))
-    }
+	}
 }
 
 struct LocationSheetRowView: View {
 	let completion: MKLocalSearchCompletion
 	
 	var body: some View {
-		HStack {
-			VStack(alignment: .leading) {
-				Text(attributedTitle)
-				
-				Text(attributedSubtitle)
-					.font(.footnote)
-			}
+		VStack(alignment: .leading) {
+			Text(attributedTitle)
 			
-			Spacer()
-			
-			Image(systemName: "plus.circle")
-				.accessibilityHidden(true)
+			Text(attributedSubtitle)
+				.font(.footnote)
 		}
+		.foregroundColor(.primary)
 	}
 	
 	private var attributedTitle: AttributedString {
@@ -163,42 +210,5 @@ struct LocationSheetRowView: View {
 		}
 		
 		return attributedString
-	}
-}
-
-struct SavedLocationRowView: View {
-	let location: Location
-	
-	@State private var snapshotImage: UIImage?
-	
-	var body: some View {
-		HStack {
-			VStack(alignment: .leading) {
-				Text(location.title)
-				
-				Text(location.subtitle)
-					.font(.footnote)
-				
-				Spacer()
-			}
-			
-			Spacer()
-			
-			Group {
-				if let image = snapshotImage {
-					Image(uiImage: image)
-				} else {
-					ProgressView()
-						.frame(width: mapSize, height: mapSize)
-						.background(Color.secondary.opacity(0.1))
-				}
-			}
-			.cornerRadius(10)
-		}
-		.task {
-			if let image = await location.generateSnapshot(width: mapSize, height: mapSize) {
-				snapshotImage = image
-			}
-		}
 	}
 }

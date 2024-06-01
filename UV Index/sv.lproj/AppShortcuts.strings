@@ -1,0 +1,18 @@
+/* No comment provided by engineer. */
+"Get ${applicationName}" = "Se ${applicationName}";
+
+/* No comment provided by engineer. */
+"Get ${applicationName} at ${location}" = "Se ${applicationName} i ${location}";
+
+/* No comment provided by engineer. */
+"Get current ${applicationName}" = "Se nuvarande ${applicationName}";
+
+/* No comment provided by engineer. */
+"Get current ${applicationName} at ${location}" = "Se nuvarande ${applicationName} i ${location}";
+
+/* No comment provided by engineer. */
+"What is the ${applicationName} at ${location}?" = "Vad är det för ${applicationName} i ${location}?";
+
+/* No comment provided by engineer. */
+"What is the ${applicationName}?" = "Vad är det för ${applicationName}?";
+
